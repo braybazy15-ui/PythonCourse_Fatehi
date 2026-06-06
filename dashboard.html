@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>داشبورد | آکادمی پایتون بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348;
+            --green-dark: #1f6e34;
+            --green-light: #e6f4ea;
+            --gold: #f0a500;
+            --gold-light: #fff8e7;
+            --dark: #1f2b3a;
+            --text: #2c3e4e;
+            --text-light: #5a6e85;
+            --bg: #f0f4fa;
+            --white: #ffffff;
+            --locked-color: #b0bec5;
+            --radius: 2rem;
+            --radius-sm: 1.5rem;
+            --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ذرات پس‌زمینه */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--green);
+            opacity: 0.1;
+            animation: floatUp 8s infinite ease-in;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.12;
+            }
+            90% {
+                opacity: 0.06;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* کارت اصلی */
+        .dashboard-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 160px;
+            height: 160px;
+            background: var(--green-light);
+            border-radius: 50%;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .dashboard-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes cardEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* هدر داشبورد */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px dashed #dce5f0;
+        }
+        .dashboard-header h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        .dashboard-header .subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* سلام کاربر */
+        .user-greeting {
+            background: var(--green-light);
+            border-radius: 3rem;
+            padding: 0.6rem 1.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            animation: float 3s infinite alternate;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            100% {
+                transform: translateY(-6px);
+            }
+        }
+
+        /* نوار پیشرفت */
+        .progress-section {
+            background: #f8fafd;
+            border-radius: var(--radius-sm);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #eef2f8;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+        }
+        .progress-title {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        .progress-percent {
+            font-weight: 800;
+            color: var(--green-dark);
+            font-size: 1rem;
+            background: var(--green-light);
+            padding: 0.2rem 0.9rem;
+            border-radius: 2rem;
+        }
+        .progress-bar-outer {
+            width: 100%;
+            height: 14px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #2b9348, #4cc76a);
+            border-radius: 20px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .progress-bar-inner::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            animation: progressShine 2s infinite;
+        }
+        @keyframes progressShine {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* timeline اصلی */
+        .roadmap-timeline {
+            position: relative;
+            padding-right: 2rem;
+        }
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: #dce5f0;
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        /* هر مرحله */
+        .stage-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 0.7rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius-xs);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .stage-item:hover:not(.stage-locked) {
+            background: rgba(43, 147, 72, 0.04);
+            transform: translateX(-4px);
+        }
+        .stage-item.stage-locked {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+        .stage-item.stage-locked:hover {
+            background: transparent;
+            transform: none;
+        }
+
+        /* دایره مرحله */
+        .stage-circle {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border: 2px solid #e0e7ef;
+            background: white;
+            color: #5a6e85;
+            position: relative;
+        }
+        /* کامل شده */
+        .stage-circle.completed {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+            box-shadow: 0 6px 18px rgba(43, 147, 72, 0.3);
+        }
+        .stage-circle.completed::after {
+            content: '✓';
+            font-weight: 900;
+        }
+        .stage-circle.completed .stage-num {
+            display: none;
+        }
+        /* قفل */
+        .stage-circle.locked {
+            background: #e9ecf1;
+            color: #a0aab5;
+            border-color: #d1d8e0;
+            box-shadow: none;
+        }
+        .stage-circle.locked::after {
+            content: '🔒';
+            font-size: 1rem;
+        }
+        .stage-circle.locked .stage-num {
+            display: none;
+        }
+        /* فعال */
+        .stage-circle.current {
+            border: 3px solid var(--gold);
+            color: var(--dark);
+            font-weight: 900;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 0 rgba(240, 165, 0, 0.5);
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(240, 165, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 14px rgba(240, 165, 0, 0);
+            }
+        }
+
+        /* متن مرحله */
+        .stage-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .stage-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--dark);
+            margin-bottom: 0.15rem;
+        }
+        .stage-desc {
+            font-size: 0.78rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .stage-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 2rem;
+            font-weight: 600;
+        }
+        .badge-completed {
+            background: var(--green-light);
+            color: var(--green-dark);
+        }
+        .badge-current {
+            background: var(--gold-light);
+            color: #b07a00;
+        }
+        .badge-locked {
+            background: #eceff1;
+            color: #78909c;
+        }
+
+        /* دکمه‌ها */
+        .btn-row {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: 3rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #2b9348, #238b3f);
+            color: white;
+            box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4);
+        }
+        .btn-outline {
+            background: white;
+            color: var(--green-dark);
+            border: 2px solid var(--green);
+        }
+        .btn-outline:hover {
+            background: var(--green-light);
+        }
+        .btn-danger {
+            background: white;
+            color: #c0392b;
+            border: 2px solid #e0c0c0;
+        }
+        .btn-danger:hover {
+            background: #fff5f5;
+        }
+
+        /* فوتر */
+        .footer-box {
+            margin-top: 1.5rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            padding: 0.9rem 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .footer-text {
+            font-size: 0.9rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .footer-text span {
+            color: #1f6e3f;
+            font-weight: 800;
+            background: #eafaf1;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        .support-link {
+            color: #2b9348;
+            font-weight: 600;
+            text-decoration: none;
+            direction: ltr;
+            display: inline-block;
+            margin-top: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        /* Toast */
+        .toast-notify {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(115deg, #1f3b2c, #113a25);
+            color: #f3fff9;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 20px 30px -12px black;
+            z-index: 1000;
+            opacity: 0;
+            transition: 0.25s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast-notify.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-card {
+                padding: 1.5rem 1rem;
+            }
+            .stage-item {
+                padding: 0.5rem 0.5rem;
+                gap: 0.7rem;
+            }
+            .stage-circle {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                font-size: 0.85rem;
+            }
+            .stage-title {
+                font-size: 0.85rem;
+            }
+            .btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ذرات پس‌زمینه -->
+    <div class="particles" id="particles"></div>
+
+    <!-- کانتینر اصلی -->
+    <div class="container">
+        <div class="dashboard-card">
+            <!-- هدر -->
+            <div class="dashboard-header">
+                <h1>🗺️ نقشه راه پایتون مقدماتی</h1>
+                <p class="subtitle">مسیر کامل یادگیری پایتون - آکادمی بردیا فاتحی</p>
+            </div>
+
+            <!-- سلام کاربر -->
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان!
+                </div>
+            </div>
+
+            <!-- نوار پیشرفت -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-title">📊 پیشرفت کلی دوره</span>
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" id="progressBar" style="width: 0%;"></div>
+                </div>
+                <div style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-light);text-align:center;">
+                    <span id="completedCount">0</span> از <strong>31</strong> مرحله تکمیل شده
+                </div>
+            </div>
+
+            <!-- نقشه راه -->
+            <div class="roadmap-timeline" id="roadmapTimeline">
+                <!-- مراحل با جاوااسکریپت ساخته می‌شوند -->
+            </div>
+
+            <!-- دکمه‌ها -->
+            <div class="btn-row">
+                <button class="btn btn-primary" id="continueBtn">
+                    🚀 ادامه مرحله فعلی
+                </button>
+                <button class="btn btn-outline" id="resetProgressBtn">
+                    🔄 بازنشانی پیشرفت
+                </button>
+            </div>
+        </div>
+
+        <!-- فوتر -->
+        <div class="footer-box">
+            <div class="footer-text">
+                ✨ طراح: <span>بردیا فاتحی</span> ✨
+            </div>
+            <div>
+                📩 پشتیبانی:
+                <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">
+                    @Fatehi_Academy_Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            // ==================== داده‌های مراحل ====================
+            const stagesData = [
+                { id: 1, title: 'برنامه‌نویسی چیست؟', desc: 'مفاهیم پایه، زبان‌های برنامه‌نویسی و کاربردها', file: 'stage-01.html',
+                    icon: '💡' },
+                { id: 2, title: 'اصطلاحات مهم', desc: 'کتابخانه، فریمورک، متغیر، تابع، رشته، ماژول، کلاس', file: 'stage-02.html',
+                    icon: '📖' },
+                { id: 3, title: 'نکات مهم قبل از شروع', desc: 'برنامه‌ریزی، پیش‌نیازها، روش مطالعه و تمرین', file: 'stage-03.html',
+                    icon: '📋' },
+                { id: 4, title: 'نصب پایتون', desc: 'آموزش کامل نصب پایتون از صفر تا صد', file: 'stage-04.html', icon: '🐍' },
+                { id: 5, title: 'نصب VS Code و اکستنشن', desc: 'معرفی و نصب Visual Studio Code و افزونه پایتون',
+                    file: 'stage-05.html', icon: '💻' },
+                { id: 6, title: 'دستور Print', desc: 'اولین برنامه پایتونی - نمایش متن و اعداد', file: 'stage-06.html',
+                icon: '🖨️' },
+                { id: 7, title: 'متغیرها', desc: 'آموزش کامل متغیرها، انواع و نحوه استفاده', file: 'stage-07.html', icon: '📦' },
+                { id: 8, title: 'مرور و جمع‌بندی ۱', desc: 'تمرینات print و متغیر + تست', file: 'stage-08.html',
+                icon: '📝' },
+                { id: 9, title: 'گرفتن ورودی (input)', desc: 'دریافت داده از کاربر، تبدیل انواع داده', file: 'stage-09.html',
+                    icon: '⌨️' },
+                { id: 10, title: 'کامنت‌گذاری', desc: 'انواع کامنت، اصول و کاربردها', file: 'stage-10.html', icon: '💬' },
+                { id: 11, title: 'انواع داده (Data Types)', desc: 'int, float, str, bool و ویژگی‌ها', file: 'stage-11.html',
+                    icon: '🔢' },
+                { id: 12, title: 'تبدیل دیتاتایپ‌ها', desc: 'Type casting و تبدیل انواع داده', file: 'stage-12.html',
+                icon: '🔄' },
+                { id: 13, title: 'مرور و جمع‌بندی ۲', desc: 'تست و تمرین مباحث ۹ تا ۱۲', file: 'stage-13.html', icon: '📝' },
+                { id: 14, title: 'شرط‌ها (if)', desc: 'ساختارهای شرطی if, elif, else', file: 'stage-14.html', icon: '🔀' },
+                { id: 15, title: 'حلقه for', desc: 'آموزش حلقه for و کاربردها', file: 'stage-15.html', icon: '🔁' },
+                { id: 16, title: 'حلقه while', desc: 'آموزش حلقه while و تفاوت با for', file: 'stage-16.html', icon: '🔄' },
+                { id: 17, title: 'مرور + ۲۰ تمرین حرفه‌ای', desc: 'تمرینات سطح‌بندی شده شرط و حلقه', file: 'stage-17.html',
+                    icon: '🏋️' },
+                { id: 18, title: 'کار با لیست‌ها (list)', desc: 'ایجاد، دسترسی، متدهای لیست', file: 'stage-18.html', icon: '📋' },
+                { id: 19, title: 'set, dict, tuple', desc: 'ساختمان داده‌های پیشرفته', file: 'stage-19.html', icon: '🗂️' },
+                { id: 20, title: 'انواع خطاها و هندل کردن', desc: 'خطاهای رایج، try-except', file: 'stage-20.html',
+                icon: '⚠️' },
+                                { id: 21, title: 'تابع (function)', desc: 'تعریف، پارامتر، return', file: 'stage-21.html', icon: '🔧' },
+                { id: 22, title: 'شی‌گرایی (مقدمات)', desc: 'مفاهیم OOP، کلاس و آبجکت', file: 'stage-22.html', icon: '🧱' },
+                { id: 23, title: 'نوشتن کلاس و ساخت آبجکت', desc: 'کلاس‌ها در پایتون، constructor', file: 'stage-23.html',
+                    icon: '🏗️' },
+                { id: 24, title: 'مرور + ۳۰ تمرین', desc: 'تمرینات سطح‌بندی شده OOP', file: 'stage-24.html', icon: '📝' },
+                { id: 25, title: 'ارث‌بری', desc: 'Inheritance در پایتون', file: 'stage-25.html', icon: '🧬' },
+                { id: 26, title: 'کدنویسی ارث‌بری', desc: 'مثال‌های عملی ارث‌بری', file: 'stage-26.html', icon: '💻' },
+                { id: 27, title: 'ماژول random', desc: 'کار با اعداد تصادفی', file: 'stage-27.html', icon: '🎲' },
+                { id: 28, title: 'نصب ماژول (pip)', desc: 'مدیریت بسته‌ها در پایتون', file: 'stage-28.html', icon: '📦' },
+                { id: 29, title: 'ساخت ماژول', desc: 'ایجاد ماژول شخصی', file: 'stage-29.html', icon: '🛠️' },
+                { id: 30, title: 'جمع‌بندی نهایی', desc: '۵۰ تمرین سطح‌بندی شده', file: 'stage-30.html', icon: '🎯' },
+                { id: 31, title: 'پایان دوره + ادامه مسیر', desc: 'خداحافظی و راهنمایی آینده', file: 'stage-31.html',
+                    icon: '🎓' },
+            ];
+
+            const TOTAL_STAGES = stagesData.length;
+
+            // ==================== عناصر DOM ====================
+            const roadmapTimeline = document.getElementById('roadmapTimeline');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const completedCount = document.getElementById('completedCount');
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const continueBtn = document.getElementById('continueBtn');
+            const resetProgressBtn = document.getElementById('resetProgressBtn');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            // ==================== ذرات پس‌زمینه ====================
+            function createParticles() {
+                const colors = ['#2b9348', '#f0a500', '#4a90d9', '#e07b5a', '#7c5cbf'];
+                for (let i = 0; i < 18; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 14 + 5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.bottom = '-20px';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            // ==================== Toast ====================
+            function showToast(message, isSuccess = true) {
+                toastMsg.textContent = message;
+                toastMsg.style.background = isSuccess ?
+                    'linear-gradient(115deg, #1f3b2c, #113a25)' :
+                    'linear-gradient(115deg, #5c1a1a, #8b2020)';
+                toastMsg.classList.remove('show');
+                void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(() => {
+                    toastMsg.classList.remove('show');
+                }, 2800);
+            }
+
+            // ==================== مدیریت کاربر ====================
+            function getUserData() {
+                const data = localStorage.getItem('python_academy_user');
+                if (data) {
+                    try {
+                        return JSON.parse(data);
+                    } catch (e) {
+                        return null;
+                    }
+                }
+                return null;
+            }
+
+            function saveUserData(userData) {
+                localStorage.setItem('python_academy_user', JSON.stringify(userData));
+            }
+
+            // اگر کاربر لاگین نکرده، برگرد به index.html
+            const userData = getUserData();
+            if (!userData || !userData.fullName) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // نمایش نام کاربر
+            userNameDisplay.textContent = userData.fullName;
+
+            // اطمینان از وجود progress
+            if (!userData.progress) {
+                userData.progress = {
+                    currentStage: 1,
+                    completedStages: [],
+                    quizResults: {}
+                };
+                saveUserData(userData);
+            }
+
+            const completedStages = userData.progress.completedStages || [];
+            const currentStage = userData.progress.currentStage || 1;
+
+            // ==================== محاسبه پیشرفت ====================
+            function updateProgress() {
+                const count = completedStages.length;
+                const percent = Math.round((count / TOTAL_STAGES) * 100);
+                progressBar.style.width = percent + '%';
+                progressPercent.textContent = percent + '%';
+                completedCount.textContent = count;
+            }
+
+            // ==================== ساخت نقشه راه ====================
+            function buildRoadmap() {
+                roadmapTimeline.innerHTML = '';
+
+                stagesData.forEach((stage) => {
+                    const isCompleted = completedStages.includes(stage.id);
+                    const isLocked = stage.id > currentStage && !isCompleted;
+                    const isCurrent = stage.id === currentStage && !isCompleted;
+
+                    let circleClass = '';
+                    let badgeHtml = '';
+                    let stageNumHtml = `<span class="stage-num">${stage.id}</span>`;
+
+                    if (isCompleted) {
+                        circleClass = 'completed';
+                        badgeHtml = '<span class="stage-badge badge-completed">✅ تکمیل شده</span>';
+                    } else if (isCurrent) {
+                        circleClass = 'current';
+                        badgeHtml = '<span class="stage-badge badge-current">📍 مرحله فعلی</span>';
+                    } else if (isLocked) {
+                        circleClass = 'locked';
+                        badgeHtml = '<span class="stage-badge badge-locked">🔒 قفل</span>';
+                    }
+
+                    const stageItem = document.createElement('div');
+                    stageItem.className = 'stage-item';
+                    if (isLocked) stageItem.classList.add('stage-locked');
+
+                    stageItem.innerHTML = `
+                        <div class="stage-circle ${circleClass}">
+                            ${stageNumHtml}
+                        </div>
+                        <div class="stage-info">
+                            <div class="stage-title">${stage.icon} ${stage.title}</div>
+                            <div class="stage-desc">${stage.desc}</div>
+                        </div>
+                        ${badgeHtml}
+                    `;
+
+                    // کلیک روی مرحله
+                    if (!isLocked) {
+                        stageItem.addEventListener('click', () => {
+                            // ذخیره مرحله فعلی
+                            if (stage.id > currentStage && !isCompleted) {
+                                // نمیشه به مراحل بعد از فعلی رفت
+                                showToast('⚠️ ابتدا باید مرحله ' + currentStage +
+                                    ' را کامل کنی!', false);
+                                return;
+                            }
+                            // اگر مرحله جاری یا قبلی است
+                            if (stage.id <= currentStage) {
+                                window.location.href = stage.file;
+                            }
+                        });
+                        stageItem.style.cursor = 'pointer';
+                    }
+
+                    roadmapTimeline.appendChild(stageItem);
+                });
+            }
+
+            // ==================== دکمه ادامه ====================
+            continueBtn.addEventListener('click', () => {
+                const currentStageData = stagesData.find(s => s.id === currentStage);
+                if (currentStageData) {
+                    window.location.href = currentStageData.file;
+                }
+            });
+
+            // ==================== بازنشانی پیشرفت ====================
+            resetProgressBtn.addEventListener('click', () => {
+                if (confirm(
+                        '⚠️ آیا مطمئنی می‌خوای تمام پیشرفتت پاک بشه؟\n\nاین کار غیرقابل بازگشته! همه مراحل دوباره قفل می‌شن.'
+                        )) {
+                    userData.progress = {
+                        currentStage: 1,
+                        completedStages: [],
+                        quizResults: {}
+                    };
+                    saveUserData(userData);
+                    showToast('🔄 پیشرفت بازنشانی شد. از اول شروع کن!', true);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 800);
+                }
+            });
+
+            // ==================== مقداردهی اولیه ====================
+            buildRoadmap();
+            updateProgress();
+
+            // اسکرول به مرحله فعلی
+            setTimeout(() => {
+                const currentStageElement = roadmapTimeline.querySelector('.stage-circle.current');
+                if (currentStageElement) {
+                    currentStageElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 500);
+
+            console.log('🐍 داشبورد آکادمی پایتون | مرحله فعلی: ' + currentStage);
+            console.log('✅ تکمیل شده: ' + completedStages.length + ' از ' + TOTAL_STAGES);
+            console.log('📩 پشتیبانی: @Fatehi_Academy_Support');
+        })();
+    </script>
+</body>
+</html>
+ 
