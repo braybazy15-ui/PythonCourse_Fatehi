@@ -506,7 +506,7 @@
             }
         }
     </style>
-    <script src="js/auth-check.js"></script>
+    <script src="js/data-manager.js"></script>
 </head>
 <body>
 
@@ -690,8 +690,8 @@
             }
 
             // اگر کاربر لاگین نکرده، برگرد به index.html
-            const userData = getUserData();
-            if (!userData) return;
+            const userData = window.loadData();
+            window.saveData(userData);
 
             // نمایش نام کاربر
             userNameDisplay.textContent = userData.fullName;
