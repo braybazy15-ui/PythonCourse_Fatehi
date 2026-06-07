@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مرحله ۹ | گرفتن ورودی از کاربر | آکادمی بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348; --green-dark: #1f6e34; --green-light: #e6f4ea;
+            --gold: #f0a500; --gold-light: #fff8e7; --dark: #1f2b3a;
+            --text: #2c3e4e; --text-light: #5a6e85; --bg: #f0f4fa; --white: #ffffff;
+            --red: #d94535; --blue: #4a90d9; --blue-light: #e8f2fd;
+            --orange: #e07b5a; --orange-light: #fef4f0;
+            --radius: 2rem; --radius-sm: 1.5rem; --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh; padding: 1.5rem 1rem;
+            display: flex; justify-content: center; align-items: flex-start;
+            position: relative; overflow-x: hidden;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; opacity: 0.1; animation: floatUp 8s infinite ease-in; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.12; } 90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        .container { max-width: 950px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+        .stage-card {
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .stage-card::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 180px; height: 180px; background: var(--orange-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob1 6s infinite alternate;
+        }
+        .stage-card::after {
+            content: ''; position: absolute; bottom: -40px; right: -40px;
+            width: 140px; height: 140px; background: var(--gold-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob2 5s infinite alternate;
+        }
+        @keyframes blob1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -15px) scale(1.15); } }
+        @keyframes blob2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20px, 15px) scale(1.1); } }
+        .stage-card>* { position: relative; z-index: 1; }
+        @keyframes cardEntry { 0% { opacity: 0; transform: translateY(30px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .stage-header { text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px dashed #dce5f0; }
+        .stage-badge-top { display: inline-block; background: var(--orange); color: white; padding: 0.3rem 1.2rem; border-radius: 2rem; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.6rem; }
+        .stage-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+        .stage-header .subtitle { color: var(--text-light); font-size: 0.9rem; }
+        .user-greeting { background: var(--green-light); border-radius: 3rem; padding: 0.6rem 1.6rem; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--green-dark); margin-bottom: 1.8rem; font-size: 1rem; animation: float 3s infinite alternate; }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
+        .lesson-section { background: #fafcfd; border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.8rem; border: 1px solid #eef2f8; border-right: 5px solid var(--orange); line-height: 2.1; color: var(--text); text-align: justify; animation: fadeIn 0.6s 0.2s both; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        .lesson-section h2 { font-size: 1.3rem; color: #b04520; margin-bottom: 1rem; font-weight: 800; }
+        .lesson-section h3 { font-size: 1.1rem; color: var(--dark); margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .lesson-section p { margin-bottom: 0.9rem; }
+        .lesson-section ul, .lesson-section ol { padding-right: 1.8rem; margin-bottom: 1rem; }
+        .lesson-section li { margin-bottom: 0.6rem; }
+        .highlight-box { background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs); padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold); }
+        .highlight-box.green { background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green); }
+        .highlight-box.orange { background: var(--orange-light); border-color: #f0c8b8; border-right: 4px solid var(--orange); }
+        .highlight-box.red { background: #fff5f5; border-color: #f0c0c0; border-right: 4px solid var(--red); }
+        .highlight-box.blue { background: var(--blue-light); border-color: #b8d0f0; border-right: 4px solid var(--blue); }
+        .code-inline { background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; display: inline-block; font-size: 0.9rem; color: #1a3a5c; }
+        .code-block { background: #1e2b3a; color: #a8d8a8; padding: 1rem 1.2rem; border-radius: 1rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.9rem; overflow-x: auto; margin: 1rem 0; line-height: 1.8; white-space: pre-wrap; word-break: break-all; }
+        .code-block .keyword { color: #569cd6; } .code-block .string { color: #ce9178; } .code-block .number { color: #b5cea8; } .code-block .comment { color: #6a9955; } .code-block .var-name { color: #9cdcfe; } .code-block .func-name { color: #dcdcaa; }
+        .error-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; border-radius: var(--radius-xs); overflow: hidden; }
+        .error-table th { background: var(--red); color: white; padding: 0.7rem; font-weight: 700; }
+        .error-table td { padding: 0.7rem; border: 1px solid #e0e7ef; text-align: center; }
+        .error-table tr:nth-child(even) { background: #f9fbfe; }
+        .error-table tr:hover { background: #fff0ef; }
+        .error-table .err-name { direction: ltr; font-family: 'Consolas', monospace; color: #c0392b; }
+        .analogy-box { display: flex; align-items: center; gap: 1.5rem; background: white; border: 2px dashed #e0e7ef; border-radius: var(--radius-sm); padding: 1.5rem; margin: 1.2rem 0; flex-wrap: wrap; }
+        .analogy-icon { font-size: 4rem; min-width: 80px; text-align: center; }
+        .analogy-text { flex: 1; min-width: 200px; }
+        .analogy-text h4 { font-weight: 800; color: var(--dark); margin-bottom: 0.5rem; }
+        .analogy-text p { font-size: 0.9rem; color: var(--text); }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .flip-card { perspective: 1000px; height: 220px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; border: 2px solid #e0e7ef; }
+        .flip-card-front { background: linear-gradient(135deg, #ffffff, #f9fbfe); flex-direction: column; gap: 0.5rem; }
+        .flip-card-front .ex-num { background: var(--orange); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
+        .flip-card-front .ex-text { font-weight: 600; color: var(--dark); font-size: 0.9rem; }
+        .flip-card-front .ex-hint { font-size: 0.7rem; color: var(--text-light); }
+        .flip-card-back { background: linear-gradient(135deg, #fef4f0, #fde0d5); transform: rotateY(180deg); flex-direction: column; gap: 0.4rem; border-color: var(--orange); }
+        .flip-card-back .answer-label { font-weight: 700; color: #b04520; font-size: 0.8rem; }
+        .flip-card-back .answer-code { background: #1e2b3a; color: #a8d8a8; padding: 0.6rem 0.9rem; border-radius: 0.5rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.8rem; max-width: 100%; overflow-x: auto; white-space: pre-wrap; text-align: right; }
+        .quiz-section { background: white; border-radius: var(--radius-sm); padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #e0e7ef; }
+        .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
+        .quiz-item { background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs); padding: 1.2rem; margin-bottom: 1rem; }
+        .quiz-question { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option { display: flex; align-items: center; gap: 10px; cursor: pointer; background: white; padding: 0.6rem 1rem; border-radius: 1rem; transition: var(--transition); border: 1px solid #eef2f8; }
+        .quiz-option:hover { background: #f0f6fa; border-color: #cddfe7; }
+        .quiz-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--orange); cursor: pointer; }
+        .quiz-option.correct-answer { background: #d4edda; border-color: #2b9348; }
+        .quiz-option.wrong-answer { background: #fce4e4; border-color: #d94535; }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem; min-height: 1.5rem; }
+        .feedback-correct { color: #1f6e34; } .feedback-wrong { color: #c0392b; }
+        .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .btn { padding: 0.8rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.95rem; font-weight: 700; border-radius: 3rem; cursor: pointer; transition: var(--transition); border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .btn-primary { background: linear-gradient(95deg, #2b9348, #238b3f); color: white; box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4); }
+        .btn-outline { background: white; color: var(--green-dark); border: 2px solid var(--green); }
+        .btn-outline:hover { background: var(--green-light); }
+        .toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) scale(0.9); background: linear-gradient(115deg, #1f3b2c, #113a25); color: #f3fff9; padding: 0.9rem 2rem; border-radius: 60px; font-weight: 600; font-size: 1rem; box-shadow: 0 20px 30px -12px black; z-index: 1000; opacity: 0; transition: 0.25s; pointer-events: none; white-space: nowrap; }
+        .toast-notify.show { opacity: 1; transform: translateX(-50%) scale(1); }
+        .footer-box { margin-top: 1.5rem; text-align: center; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(6px); border-radius: 2rem; padding: 0.9rem 1.2rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.8); }
+        .footer-text { font-size: 0.9rem; color: #2c3e50; font-weight: 500; }
+        .footer-text span { color: #1f6e3f; font-weight: 800; background: #eafaf1; padding: 0.2rem 0.8rem; border-radius: 30px; display: inline-block; }
+        .support-link { color: #2b9348; font-weight: 600; text-decoration: none; direction: ltr; display: inline-block; margin-top: 0.3rem; font-size: 0.85rem; }
+        @media (max-width: 600px) {
+            .stage-card { padding: 1.5rem 1rem; } .stage-header h1 { font-size: 1.4rem; }
+            .lesson-section { padding: 1rem; font-size: 0.9rem; } .btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
+            .exercise-grid { grid-template-columns: 1fr; } .analogy-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="stage-card">
+            <div class="stage-header">
+                <span class="stage-badge-top">📚 مرحله ۹ از ۳۱</span>
+                <h1>⌨️ گرفتن ورودی از کاربر (Input)</h1>
+                <p class="subtitle">یاد می‌گیری چطور از کاربر اطلاعات بگیری و در برنامه استفاده کنی!</p>
+            </div>
+
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان! امروز برنامه‌های تعاملی می‌سازیم ⌨️
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h2>⌨️ تابع input چیست و چه کاری انجام می‌دهد؟</h2>
+                <p>
+                    تا حالا هر برنامه‌ای که نوشتیم، فقط <strong>خروجی</strong> داشت. یعنی ما به کامپیوتر چیزی می‌گفتیم
+                    و او چاپ می‌کرد. اما برنامه‌های واقعی <strong>تعاملی</strong> هستند! یعنی از کاربر
+                    <strong>ورودی می‌گیرند</strong>، روی آن پردازش انجام می‌دهند و نتیجه را نشان می‌دهند.
+                </p>
+                <p>
+                    تابع <span class="code-inline">input()</span> دقیقاً همین کار را می‌کند:
+                    <strong>منتظر می‌ماند تا کاربر چیزی تایپ کند و دکمه Enter را بزند،
+                    سپس آن متن را به عنوان یک رشته (String) برمی‌گرداند.</strong>
+                </p>
+
+                <div class="analogy-box">
+                    <div class="analogy-icon">📋</div>
+                    <div class="analogy-text">
+                        <h4>مثال واقعی: مثل فرم ثبت‌نام!</h4>
+                        <p>
+                            تصور کن یه فرم ثبت‌نام داری. اول از کاربر می‌پرسی: «اسمت چیه؟»
+                            کاربر اسمش رو می‌نویسه. بعد می‌پرسی: «چند سالته؟» کاربر سنش رو وارد می‌کنه.
+                            <span class="code-inline">input()</span> دقیقاً مثل این فرم‌ها از کاربر سوال می‌پرسه
+                            و جواب رو دریافت می‌کنه!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="highlight-box green">
+                    <strong>🎯 تعریف ساده:</strong> <span class="code-inline">input()</span> یعنی
+                    «از کاربر بپرس و جوابش رو بگیر». هر چیزی که کاربر تایپ کند،
+                    به صورت <strong>متن (رشته/String)</strong> دریافت می‌شود.
+                </div>
+
+                <h2>✍️ ساختار کلی تابع Input</h2>
+                <div class="code-block">
+<span class="comment"># روش اول: گرفتن ورودی بدون پیام</span>
+<span class="var-name">name</span> = <span class="func-name">input</span>()
+
+<span class="comment"># روش دوم: گرفتن ورودی با پیام راهنما (بهتر!)</span>
+<span class="var-name">name</span> = <span class="func-name">input</span>(<span class="string">"لطفاً اسم خودت را وارد کن: "</span>)
+                </div>
+                <p>
+                    <strong>نکته:</strong> همیشه بهتر است داخل پرانتز input یک <strong>پیام راهنما</strong>
+                    بگذاری تا کاربر بداند چه چیزی باید وارد کند. در غیر این صورت،
+                    کاربر یک صفحه خالی می‌بیند و نمی‌داند باید چه کار کند!
+                </p>
+
+                <h2>💾 ذخیره ورودی در متغیر</h2>
+                <p>
+                    <strong>خیلی مهم:</strong> ورودی که از کاربر می‌گیری را <strong>حتماً باید در یک متغیر ذخیره کنی</strong>،
+                    وگرنه از دست می‌رود و نمی‌توانی بعداً از آن استفاده کنی!
+                </p>
+
+                <div class="code-block">
+<span class="comment"># ❌ غلط: ورودی را ذخیره نکردیم - از دست می‌رود!</span>
+<span class="func-name">input</span>(<span class="string">"اسمت چیه؟ "</span>)
+
+<span class="comment"># ✅ درست: ورودی را در متغیر name ذخیره کردیم</span>
+<span class="var-name">name</span> = <span class="func-name">input</span>(<span class="string">"اسمت چیه؟ "</span>)
+<span class="keyword">print</span>(<span class="string">"سلام"</span>, <span class="var-name">name</span>)
+                </div>
+
+                <h2>🧪 مثال‌های ساده با Input</h2>
+
+                <h3>مثال ۱: سلام و احوالپرسی</h3>
+                <div class="code-block">
+<span class="var-name">name</span> = <span class="func-name">input</span>(<span class="string">"لطفاً اسم خودت را وارد کن: "</span>)
+<span class="keyword">print</span>(<span class="string">"سلام"</span>, <span class="var-name">name</span>, <span class="string">"! خوش آمدی به دوره پایتون!"</span>)
+                </div>
+                <p><strong>نمونه اجرا:</strong></p>
+                <div class="code-block">
+لطفاً اسم خودت را وارد کن: <span style="color:#9cdcfe;">Amir</span>
+سلام Amir ! خوش آمدی به دوره پایتون!
+                </div>
+
+                <h3>مثال ۲: پرسیدن سن</h3>
+                <div class="code-block">
+<span class="var-name">name</span> = <span class="func-name">input</span>(<span class="string">"اسمت چیه؟ "</span>)
+<span class="var-name">age</span> = <span class="func-name">input</span>(<span class="string">"چند سالته؟ "</span>)
+<span class="keyword">print</span>(<span class="string">f"اسم تو {name} و سن تو {age} سال است."</span>)
+                </div>
+
+                <h2>⚠️ نکته خیلی مهم: ورودی همیشه رشته است!</h2>
+                <p>
+                    این یکی از مهم‌ترین نکاتی است که باید بدانی:
+                    <strong>هر چیزی که با input دریافت می‌کنی، از نوع رشته (String) است،
+                    حتی اگر کاربر عدد وارد کند!</strong>
+                </p>
+
+                <div class="highlight-box red">
+                    <strong>⚠️ اشتباه رایج:</strong>
+                    <br><span class="code-inline">age = input("سن تو: ")</span> ← اگر کاربر عدد 20 را وارد کند،
+                    <span class="code-inline">age</span> برابر با <span class="code-inline">"20"</span> (رشته) است، نه <span class="code-inline">20</span> (عدد)!
+                    <br>پس نمی‌توانی با آن عملیات ریاضی انجام دهی مگر اینکه اول آن را به عدد تبدیل کنی!
+                </div>
+
+                <h2>🔄 تبدیل ورودی به عدد (Integer و Float)</h2>
+                <p>
+                    برای اینکه بتوانی با عددی که کاربر وارد کرده، محاسبات ریاضی انجام دهی،
+                    باید آن را <strong>تبدیل</strong> کنی:
+                </p>
+
+                <h3>🔹 تبدیل به عدد صحیح (Integer)</h3>
+                <div class="code-block">
+<span class="comment"># گرفتن سن و تبدیل به عدد</span>
+<span class="var-name">age</span> = <span class="func-name">input</span>(<span class="string">"سن تو چند ساله؟ "</span>)
+<span class="var-name">age</span> = <span class="func-name">int</span>(<span class="var-name">age</span>)  <span class="comment"># تبدیل رشته به عدد صحیح</span>
+
+<span class="comment"># حالا می‌تونیم محاسبه کنیم!</span>
+<span class="var-name">next_year_age</span> = <span class="var-name">age</span> + <span class="number">1</span>
+<span class="keyword">print</span>(<span class="string">f"سال دیگه {next_year_age} ساله می‌شی!"</span>)
+                </div>
+
+                <h3>🔹 روش خلاصه‌تر (تبدیل همزمان با دریافت)</h3>
+                <div class="code-block">
+<span class="comment"># دریافت و تبدیل همزمان در یک خط</span>
+<span class="var-name">age</span> = <span class="func-name">int</span>(<span class="func-name">input</span>(<span class="string">"سن تو چند ساله؟ "</span>))
+<span class="keyword">print</span>(<span class="string">f"سن تو دو برابر: {age * 2}"</span>)
+                </div>
+
+                <h3>🔹 تبدیل به عدد اعشاری (Float)</h3>
+                <div class="code-block">
+<span class="comment"># گرفتن قد و تبدیل به عدد اعشاری</span>
+<span class="var-name">height</span> = <span class="func-name">float</span>(<span class="func-name">input</span>(<span class="string">"قد تو چند متر است؟ "</span>))
+<span class="keyword">print</span>(<span class="string">f"قد تو {height} متر است."</span>)
+                </div>
+
+                <h2>⚠️ خطاهای رایج در کار با Input</h2>
+                <table class="error-table">
+                    <thead>
+                        <tr><th>نام خطا</th><th>علت</th><th>راه‌حل</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="err-name">TypeError</td>
+                            <td>جمع عدد و رشته (فراموش کردن تبدیل)</td>
+                            <td>ورودی را با <span class="code-inline">int()</span> یا <span class="code-inline">float()</span> تبدیل کن</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">ValueError</td>
+                            <td>وارد کردن متن به جای عدد موقع تبدیل</td>
+                            <td>مطمئن شو کاربر واقعاً عدد وارد می‌کند</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">NameError</td>
+                            <td>ذخیره نکردن ورودی در متغیر</td>
+                            <td>همیشه ورودی را در یک متغیر بریز</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">EOFError</td>
+                            <td>فشردن Ctrl+D یا Ctrl+Z به جای وارد کردن متن</td>
+                            <td>ورودی را به درستی وارد کن</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>🎯 کاربردهای خلاقانه Input</h2>
+                <ul>
+                    <li>📝 <strong>فرم‌های ثبت‌نام:</strong> دریافت اسم، ایمیل، رمز عبور</li>
+                    <li>🧮 <strong>ماشین حساب:</strong> دریافت دو عدد و انجام عملیات روی آن‌ها</li>
+                    <li>🎮 <strong>بازی حدس عدد:</strong> کاربر یک عدد حدس می‌زند</li>
+                    <li>📊 <strong>محاسبه معدل:</strong> دریافت نمرات و محاسبه میانگین</li>
+                    <li>🛒 <strong>محاسبه قیمت:</strong> دریافت تعداد و قیمت واحد، محاسبه کل</li>
+                </ul>
+
+                <h2>🧪 تمرین‌های عملی Input</h2>
+                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! <strong>اول خودت حل کن، بعد جواب را چک کن!</strong></p>
+
+                <div class="exercise-grid">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۱</div>
+                                <div class="ex-text">اسم کاربر را بگیر و به او سلام کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">name = input("اسمت چیه؟ ")
+print("سلام", name, "جان!")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۲</div>
+                                <div class="ex-text">سن کاربر را بگیر و بگو سال دیگر چند ساله می‌شود</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">age = int(input("چند سالته؟ "))
+print(f"سال دیگه {age + 1} ساله می‌شی!")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۳</div>
+                                <div class="ex-text">دو عدد بگیر و مجموعشان را چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">a = int(input("عدد اول: "))
+b = int(input("عدد دوم: "))
+print("مجموع:", a + b)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۴</div>
+                                <div class="ex-text">طول و عرض مستطیل را بگیر و مساحت را چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">length = float(input("طول: "))
+width = float(input("عرض: "))
+area = length * width
+print("مساحت:", area)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۵</div>
+                                <div class="ex-text">اسم و شهر کاربر را بگیر و در یک جمله چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">name = input("اسمت: ")
+city = input("شهرت: ")
+print(f"{name} اهل {city} است.")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۶</div>
+                                <div class="ex-text">قیمت و تعداد را بگیر و مبلغ کل را حساب کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">price = float(input("قیمت: "))
+count = int(input("تعداد: "))
+total = price * count
+print("مبلغ کل:", total)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-section" id="quizSection">
+                <h3>📝 آزمون مرحله ۹ - Input</h3>
+                <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">
+                    ببینیم input را چقدر خوب یاد گرفتی؟ (اختیاری)
+                </p>
+
+                <div class="quiz-item" data-question="1" data-correct="2">
+                    <div class="quiz-question">۱. تابع <span class="code-inline">input()</span> چه نوع داده‌ای برمی‌گرداند؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> همیشه عدد (Integer)</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> همیشه رشته (String)</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> همیشه اعشاری (Float)</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> بستگی به ورودی کاربر دارد</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item" data-question="2" data-correct="4">
+                    <div class="quiz-question">۲. برای گرفتن یک عدد از کاربر و انجام جمع، چه کاری باید انجام دهی؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q2" value="1"> هیچ کاری - input خودش عدد را تشخیص می‌دهد</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="2"> از print استفاده کنیم</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="3"> عدد را داخل کوتیشن بگذاریم</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="4"> ورودی را با int() یا float() تبدیل کنیم</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item" data-question="3" data-correct="3">
+                    <div class="quiz-question">۳. خروجی کد زیر چیست؟ <span class="code-inline">name = input("اسم: ")</span> و کاربر Ali را وارد کند، سپس <span class="code-inline">print("Hello", name)</span></div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q3" value="1"> Hello name</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="2"> Hello</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> Hello Ali</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> خطا</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+
+                <div class="quiz-item" data-question="4" data-correct="1">
+                    <div class="quiz-question">۴. اگر کاربر در پاسخ به <span class="code-inline">int(input("عدد: "))</span> حروف وارد کند، چه اتفاقی می‌افتد؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q4" value="1"> خطای ValueError</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="2"> عدد صفر در نظر گرفته می‌شود</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="3"> برنامه ادامه می‌دهد</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="4"> هیچی</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback4"></div>
+                </div>
+
+                <div class="quiz-item" data-question="5" data-correct="2">
+                    <div class="quiz-question">۵. کدام کد <strong>درست</strong> است؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q5" value="1"> input = "اسمت چیه؟"</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="2"> name = input("اسمت چیه؟ ")</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="3"> name = input(اسمت چیه؟)</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="4"> input("اسمت چیه؟ ") = name</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback5"></div>
+                </div>
+
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
+                </div>
+                <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
+            </div>
+
+            <div class="btn-row">
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-08.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-10.html" class="btn btn-primary">🚀 مرحله بعد: کامنت‌گذاری</a>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
+            const quizResultMsg = document.getElementById('quizResultMsg');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            function createParticles() {
+                const colors = ['#e07b5a', '#f0a500', '#4a90d9', '#2b9348', '#7c5cbf'];
+                for (let i = 0; i < 18; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 14 + 5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.bottom = '-20px';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            function showToast(message, isSuccess = true) {
+                toastMsg.textContent = message;
+                toastMsg.style.background = isSuccess ? 'linear-gradient(115deg, #1f3b2c, #113a25)' : 'linear-gradient(115deg, #5c1a1a, #8b2020)';
+                toastMsg.classList.remove('show');
+                void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(() => { toastMsg.classList.remove('show'); }, 3000);
+            }
+
+            const userData = JSON.parse(localStorage.getItem('python_academy_user') || 'null');
+            if (userData && userData.fullName) {
+                userNameDisplay.textContent = userData.fullName;
+            }
+
+            checkQuizBtn.addEventListener('click', () => {
+                const quizItems = document.querySelectorAll('.quiz-item');
+                let allCorrect = true;
+                let allAnswered = true;
+                let correctCount = 0;
+                const totalQuestions = quizItems.length;
+
+                document.querySelectorAll('.quiz-feedback').forEach(fb => { fb.textContent = ''; fb.className = 'quiz-feedback'; });
+                document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct-answer', 'wrong-answer'));
+
+                quizItems.forEach(item => {
+                    const questionNum = item.getAttribute('data-question');
+                    const correctAnswer = item.getAttribute('data-correct');
+                    const selectedRadio = item.querySelector(`input[name="q${questionNum}"]:checked`);
+                    const feedbackEl = document.getElementById('feedback' + questionNum);
+
+                    if (!selectedRadio) {
+                        allAnswered = false;
+                        allCorrect = false;
+                        feedbackEl.textContent = '⚠️ لطفاً یک گزینه را انتخاب کن!';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                        return;
+                    }
+
+                    const selectedValue = selectedRadio.value;
+                    const selectedOption = selectedRadio.closest('.quiz-option');
+
+                    if (selectedValue === correctAnswer) {
+                        correctCount++;
+                        selectedOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '✅ صحیح! آفرین!';
+                        feedbackEl.className = 'quiz-feedback feedback-correct';
+                    } else {
+                        allCorrect = false;
+                        selectedOption.classList.add('wrong-answer');
+                        const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option');
+                        correctOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '❌ نادرست! گزینه صحیح با رنگ سبز مشخص شده است.';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                    }
+                });
+
+                if (!allAnswered) {
+                    quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ لطفاً به همه سوالات پاسخ بده!</span>';
+                    showToast('⚠️ همه سوالات باید پاسخ داده شوند!', false);
+                    return;
+                }
+
+                if (allCorrect) {
+                    quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 تبریک! همه پاسخ‌ها درست بود. input را کامل یاد گرفتی!</span>';
+                    showToast('🎉 عالی! آماده‌ای برای مرحله بعد!', true);
+                } else {
+                    const wrongCount = totalQuestions - correctCount;
+                    quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} سوال اشتباه بود. گزینه‌های سبز را ببین و دوباره تلاش کن!</span>`;
+                    showToast('❌ دوباره تلاش کن!', false);
+                }
+            });
+
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                });
+            });
+
+            console.log('🐍 مرحله ۹: گرفتن ورودی از کاربر | آکادمی بردیا فاتحی');
+        })();
+    </script>
+</body>
+</html>
