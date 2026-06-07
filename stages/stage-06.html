@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مرحله ۶ | دستور Print | آکادمی بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348;
+            --green-dark: #1f6e34;
+            --green-light: #e6f4ea;
+            --gold: #f0a500;
+            --gold-light: #fff8e7;
+            --dark: #1f2b3a;
+            --text: #2c3e4e;
+            --text-light: #5a6e85;
+            --bg: #f0f4fa;
+            --white: #ffffff;
+            --red: #d94535;
+            --blue: #4a90d9;
+            --blue-light: #e8f2fd;
+            --radius: 2rem;
+            --radius-sm: 1.5rem;
+            --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute; border-radius: 50%; opacity: 0.1;
+            animation: floatUp 8s infinite ease-in;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.12; }
+            90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .container { max-width: 950px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+
+        .stage-card {
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .stage-card::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 180px; height: 180px; background: var(--green-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0;
+            animation: blob1 6s infinite alternate;
+        }
+        .stage-card::after {
+            content: ''; position: absolute; bottom: -40px; right: -40px;
+            width: 140px; height: 140px; background: var(--gold-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0;
+            animation: blob2 5s infinite alternate;
+        }
+        @keyframes blob1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -15px) scale(1.15); } }
+        @keyframes blob2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20px, 15px) scale(1.1); } }
+        .stage-card>* { position: relative; z-index: 1; }
+
+        @keyframes cardEntry { 0% { opacity: 0; transform: translateY(30px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .stage-header {
+            text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem;
+            border-bottom: 2px dashed #dce5f0;
+        }
+        .stage-badge-top {
+            display: inline-block; background: var(--green); color: white;
+            padding: 0.3rem 1.2rem; border-radius: 2rem; font-weight: 700;
+            font-size: 0.85rem; margin-bottom: 0.6rem;
+        }
+        .stage-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+        .stage-header .subtitle { color: var(--text-light); font-size: 0.9rem; }
+
+        .user-greeting {
+            background: var(--green-light); border-radius: 3rem; padding: 0.6rem 1.6rem;
+            display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;
+            color: var(--green-dark); margin-bottom: 1.8rem; font-size: 1rem;
+            animation: float 3s infinite alternate;
+        }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
+
+        .lesson-section {
+            background: #fafcfd; border-radius: var(--radius-sm); padding: 1.5rem;
+            margin-bottom: 1.8rem; border: 1px solid #eef2f8; border-right: 5px solid var(--green);
+            line-height: 2.1; color: var(--text); text-align: justify;
+            animation: fadeIn 0.6s 0.2s both;
+        }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        .lesson-section h2 { font-size: 1.3rem; color: var(--green-dark); margin-bottom: 1rem; font-weight: 800; }
+        .lesson-section h3 { font-size: 1.1rem; color: var(--dark); margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .lesson-section p { margin-bottom: 0.9rem; }
+        .lesson-section ul, .lesson-section ol { padding-right: 1.8rem; margin-bottom: 1rem; }
+        .lesson-section li { margin-bottom: 0.6rem; }
+
+        .highlight-box {
+            background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs);
+            padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold);
+        }
+        .highlight-box.green { background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green); }
+        .highlight-box.red { background: #fff5f5; border-color: #f0c0c0; border-right: 4px solid var(--red); }
+        .highlight-box.blue { background: var(--blue-light); border-color: #b8d0f0; border-right: 4px solid var(--blue); }
+        .code-inline {
+            background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr;
+            display: inline-block; font-size: 0.9rem; color: #1a3a5c;
+        }
+        .code-block {
+            background: #1e2b3a; color: #a8d8a8; padding: 1rem 1.2rem; border-radius: 1rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr;
+            font-size: 0.9rem; overflow-x: auto; margin: 1rem 0; line-height: 1.8;
+            white-space: pre-wrap; word-break: break-all;
+        }
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .number { color: #b5cea8; }
+        .code-block .comment { color: #6a9955; }
+        .code-block .error { color: #f44747; }
+
+        .error-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; border-radius: var(--radius-xs); overflow: hidden; }
+        .error-table th { background: var(--red); color: white; padding: 0.7rem; font-weight: 700; }
+        .error-table td { padding: 0.7rem; border: 1px solid #e0e7ef; text-align: center; }
+        .error-table tr:nth-child(even) { background: #f9fbfe; }
+        .error-table tr:hover { background: #fff0ef; }
+        .error-table .err-name { direction: ltr; font-family: 'Consolas', monospace; color: #c0392b; }
+
+        /* کارت‌های تمرین چرخشی */
+        .exercise-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem; margin: 1.2rem 0;
+        }
+        .flip-card { perspective: 1000px; height: 200px; cursor: pointer; }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: var(--radius-xs); display: flex; align-items: center;
+            justify-content: center; padding: 1rem; text-align: center;
+            border: 2px solid #e0e7ef;
+        }
+        .flip-card-front {
+            background: linear-gradient(135deg, #ffffff, #f9fbfe);
+            flex-direction: column; gap: 0.5rem;
+        }
+        .flip-card-front .ex-num {
+            background: var(--green); color: white; width: 40px; height: 40px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1rem;
+        }
+        .flip-card-front .ex-text { font-weight: 600; color: var(--dark); font-size: 0.9rem; }
+        .flip-card-front .ex-hint { font-size: 0.7rem; color: var(--text-light); }
+        .flip-card-back {
+            background: linear-gradient(135deg, #f0faf3, #d4edda);
+            transform: rotateY(180deg); flex-direction: column; gap: 0.4rem;
+            border-color: var(--green);
+        }
+        .flip-card-back .answer-label { font-weight: 700; color: var(--green-dark); font-size: 0.8rem; }
+        .flip-card-back .answer-code {
+            background: #1e2b3a; color: #a8d8a8; padding: 0.6rem 0.9rem;
+            border-radius: 0.5rem; font-family: 'Consolas', 'Courier New', monospace;
+            direction: ltr; font-size: 0.8rem; max-width: 100%; overflow-x: auto;
+            white-space: pre-wrap; text-align: right;
+        }
+
+        .quiz-section {
+            background: white; border-radius: var(--radius-sm); padding: 1.5rem;
+            margin-top: 1.5rem; border: 2px solid #e0e7ef;
+        }
+        .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
+        .quiz-item {
+            background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs);
+            padding: 1.2rem; margin-bottom: 1rem;
+        }
+        .quiz-question { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option {
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            background: white; padding: 0.6rem 1rem; border-radius: 1rem;
+            transition: var(--transition); border: 1px solid #eef2f8;
+        }
+        .quiz-option:hover { background: #f0f6fa; border-color: #cddfe7; }
+        .quiz-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
+        .quiz-option.correct-answer { background: #d4edda; border-color: #2b9348; }
+        .quiz-option.wrong-answer { background: #fce4e4; border-color: #d94535; }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem; min-height: 1.5rem; }
+        .feedback-correct { color: #1f6e34; }
+        .feedback-wrong { color: #c0392b; }
+
+        .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .btn {
+            padding: 0.8rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.95rem;
+            font-weight: 700; border-radius: 3rem; cursor: pointer; transition: var(--transition);
+            border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .btn-primary { background: linear-gradient(95deg, #2b9348, #238b3f); color: white; box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4); }
+        .btn-outline { background: white; color: var(--green-dark); border: 2px solid var(--green); }
+        .btn-outline:hover { background: var(--green-light); }
+
+        .toast-notify {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(115deg, #1f3b2c, #113a25); color: #f3fff9;
+            padding: 0.9rem 2rem; border-radius: 60px; font-weight: 600; font-size: 1rem;
+            box-shadow: 0 20px 30px -12px black; z-index: 1000; opacity: 0; transition: 0.25s;
+            pointer-events: none; white-space: nowrap;
+        }
+        .toast-notify.show { opacity: 1; transform: translateX(-50%) scale(1); }
+
+        .footer-box {
+            margin-top: 1.5rem; text-align: center; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(6px); border-radius: 2rem; padding: 0.9rem 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .footer-text { font-size: 0.9rem; color: #2c3e50; font-weight: 500; }
+        .footer-text span { color: #1f6e3f; font-weight: 800; background: #eafaf1; padding: 0.2rem 0.8rem; border-radius: 30px; display: inline-block; }
+        .support-link { color: #2b9348; font-weight: 600; text-decoration: none; direction: ltr; display: inline-block; margin-top: 0.3rem; font-size: 0.85rem; }
+
+        @media (max-width: 600px) {
+            .stage-card { padding: 1.5rem 1rem; }
+            .stage-header h1 { font-size: 1.4rem; }
+            .lesson-section { padding: 1rem; font-size: 0.9rem; }
+            .btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
+            .exercise-grid { grid-template-columns: 1fr; }
+            .code-block { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="stage-card">
+            <div class="stage-header">
+                <span class="stage-badge-top">📚 مرحله ۶ از ۳۱</span>
+                <h1>🖨️ دستور Print - اولین برنامه پایتونی</h1>
+                <p class="subtitle">سلام دنیا! شروع رسمی برنامه‌نویسی با پایتون</p>
+            </div>
+
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان! امروز اولین کد واقعی رو می‌نویسیم 🖨️
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h2>🖨️ دستور Print چیست و چه کاری انجام می‌دهد؟</h2>
+                <p>
+                    <strong><span class="code-inline">print()</span></strong> اولین و پرکاربردترین دستور در پایتون است.
+                    کار آن خیلی ساده است: <strong>هر چیزی که داخل پرانتز بهش بدی را روی صفحه نمایش (کنسول) چاپ می‌کند!</strong>
+                </p>
+                <p>
+                    print یعنی «چاپ کن». البته چاپ روی کاغذ نیست! چاپ روی صفحه مانیتور،
+                    در همون پنجره‌ای که پایتون رو اجرا می‌کنی (CMD، Terminal یا Output در VS Code).
+                </p>
+
+                <div class="highlight-box green">
+                    <strong>🎯 کاربرد اصلی:</strong> print راه ارتباط برنامه با <strong>تو</strong> است!
+                    وقتی می‌خواهی نتیجه یک محاسبه را ببینی، یک پیام به کاربر نشون بدی،
+                    یا بفهمی داخل برنامه چه خبر است، از print استفاده می‌کنی.
+                </div>
+
+                <h2>✍️ ساختار کلی دستور Print</h2>
+                <div class="code-block">
+<span class="keyword">print</span>(<span class="string">"متن مورد نظر"</span>)
+<span class="keyword">print</span>(<span class="number">123</span>)
+<span class="keyword">print</span>(متغیر)
+                </div>
+                <p>
+                    <strong>print</strong> یک <strong>تابع (Function)</strong> است. در پایتون، توابع را با
+                    گذاشتن پرانتز <span class="code-inline">()</span> بعد از اسمشان صدا می‌زنیم.
+                    هر چیزی داخل پرانتز بگذاریم، به تابع داده می‌شود تا روی آن کاری انجام دهد.
+                </p>
+
+                <h2>📝 چاپ متن (String) با Print</h2>
+                <p>
+                    برای چاپ یک متن (رشته/String)، باید متن را داخل <strong>علامت کوتیشن (گیومه)</strong> قرار بدهیم.
+                    پایتون باید بفهمد که این یک متن است، نه اسم یک متغیر یا دستور خاص!
+                </p>
+
+                <h3>✅ انواع کوتیشن مجاز در پایتون:</h3>
+                <ul>
+                    <li><strong>دابل کوتیشن:</strong> <span class="code-inline">"سلام دنیا"</span> ← رایج‌ترین روش</li>
+                    <li><strong>سینگل کوتیشن:</strong> <span class="code-inline">'سلام دنیا'</span> ← کاملاً معادل دابل کوتیشن</li>
+                    <li><strong>سه‌تایی دابل:</strong> <span class="code-inline">"""متن چند خطی"""</span> ← برای متن‌های طولانی</li>
+                    <li><strong>سه‌تایی سینگل:</strong> <span class="code-inline">'''متن چند خطی'''</span> ← معادل سه‌تایی دابل</li>
+                </ul>
+
+                <div class="code-block">
+<span class="comment"># مثال ۱: چاپ یک سلام ساده</span>
+<span class="keyword">print</span>(<span class="string">"سلام به همه دوستان!"</span>)
+<span class="comment"># خروجی: سلام به همه دوستان!</span>
+
+<span class="comment"># مثال ۲: با سینگل کوتیشن</span>
+<span class="keyword">print</span>(<span class="string">'من عاشق پایتون هستم'</span>)
+<span class="comment"># خروجی: من عاشق پایتون هستم</span>
+
+<span class="comment"># مثال ۳: متن چند خطی</span>
+<span class="keyword">print</span>(<span class="string">"""خط اول
+خط دوم
+خط سوم"""</span>)
+                </div>
+
+                <h2>🔢 چاپ اعداد (Numbers) با Print</h2>
+                <p>
+                    برای چاپ اعداد، <strong>نیازی به کوتیشن نیست!</strong> اعداد را مستقیماً داخل پرانتز می‌نویسیم.
+                    پایتون خودش می‌فهمد که این یک عدد است.
+                </p>
+
+                <div class="code-block">
+<span class="comment"># چاپ عدد صحیح (Integer)</span>
+<span class="keyword">print</span>(<span class="number">42</span>)
+<span class="comment"># خروجی: 42</span>
+
+<span class="comment"># چاپ عدد اعشاری (Float)</span>
+<span class="keyword">print</span>(<span class="number">3.14</span>)
+<span class="comment"># خروجی: 3.14</span>
+
+<span class="comment"># چاپ عدد منفی</span>
+<span class="keyword">print</span>(<span class="number">-10</span>)
+<span class="comment"># خروجی: -10</span>
+
+<span class="comment"># چاپ نتیجه یک محاسبه (نیاز به کوتیشن نیست!)</span>
+<span class="keyword">print</span>(<span class="number">5 + 3</span>)
+<span class="comment"># خروجی: 8</span>
+
+<span class="keyword">print</span>(<span class="number">10 * 2</span>)
+<span class="comment"># خروجی: 20</span>
+
+<span class="keyword">print</span>(<span class="number">100 - 45</span>)
+<span class="comment"># خروجی: 55</span>
+                </div>
+
+                <div class="highlight-box blue">
+                    <strong>🧠 نکته طلایی:</strong> پایتون هر چیزی که داخل پرانتز باشد را اول <strong>محاسبه</strong> می‌کند،
+                    سپس نتیجه را چاپ می‌کند. پس <span class="code-inline">print(5 + 3)</span> اول 5+3 را حساب می‌کند (میشه ۸)،
+                    بعد ۸ را چاپ می‌کند!
+                </div>
+
+                <h2>🤔 اگر عدد را داخل کوتیشن بگذاریم چه می‌شود؟</h2>
+                <p>
+                    این سوال خیلی مهمی است! ببینیم تفاوت کجاست:
+                </p>
+
+                <div class="code-block">
+<span class="comment"># عدد بدون کوتیشن (عدد واقعی)</span>
+<span class="keyword">print</span>(<span class="number">123</span>)
+<span class="comment"># خروجی: 123 (به عنوان عدد)</span>
+
+<span class="comment"># عدد با کوتیشن (رشته متنی)</span>
+<span class="keyword">print</span>(<span class="string">"123"</span>)
+<span class="comment"># خروجی: 123 (به عنوان متن)</span>
+                </div>
+
+                <p>
+                    هردو <strong>ظاهراً</strong> یکسان چاپ می‌شوند، اما <strong>ماهیتشان</strong> فرق دارد:
+                </p>
+                <ul>
+                    <li><span class="code-inline">123</span> یک <strong>عدد</strong> است. می‌توانی باهاش جمع و تفریق کنی.</li>
+                                        <li><span class="code-inline">"123"</span> یک <strong>رشته (متن)</strong> است. نمی‌توانی باهاش عملیات ریاضی انجام دهی!</li>
+                </ul>
+
+                <div class="code-block">
+<span class="comment"># این کار می‌کنه (جمع دو عدد)</span>
+<span class="keyword">print</span>(<span class="number">100 + 23</span>)
+<span class="comment"># خروجی: 123</span>
+
+<span class="comment"># این کار نمی‌کنه! (جمع عدد و رشته)</span>
+<span class="keyword">print</span>(<span class="number">100</span> + <span class="string">"23"</span>)
+<span class="comment"># خطا! TypeError: unsupported operand type(s)</span>
+                </div>
+
+                <h2>➕ ترکیب متن و عدد در Print</h2>
+                <p>چند روش برای ترکیب متن و عدد داریم:</p>
+
+                <h3>روش ۱: استفاده از کاما (ویرگول)</h3>
+                <div class="code-block">
+<span class="keyword">print</span>(<span class="string">"سن من:"</span>, <span class="number">25</span>)
+<span class="comment"># خروجی: سن من: 25</span>
+
+<span class="keyword">print</span>(<span class="string">"قیمت:"</span>, <span class="number">15000</span>, <span class="string">"تومان"</span>)
+<span class="comment"># خروجی: قیمت: 15000 تومان</span>
+                </div>
+                <p>کاما به صورت خودکار یک <strong>فاصله (Space)</strong> بین مقادیر قرار می‌دهد.</p>
+
+                <h3>روش ۲: تبدیل عدد به رشته با <span class="code-inline">str()</span></h3>
+                <div class="code-block">
+<span class="keyword">print</span>(<span class="string">"سن من: "</span> + <span class="keyword">str</span>(<span class="number">25</span>))
+<span class="comment"># خروجی: سن من: 25</span>
+                </div>
+
+                <h3>روش ۳: f-string (بهترین روش - در مراحل بعدی یاد می‌گیری)</h3>
+                <div class="code-block">
+<span class="string">name</span> = <span class="string">"امیر"</span>
+<span class="string">age</span> = <span class="number">20</span>
+<span class="keyword">print</span>(<span class="string">f"سلام {name}، سن تو {age} سال است"</span>)
+<span class="comment"># خروجی: سلام امیر، سن تو 20 سال است</span>
+                </div>
+
+                <h2>📝 پارامترهای مهم تابع Print</h2>
+                <p>تابع print پارامترهای مختلفی دارد که رفتار آن را کنترل می‌کنند:</p>
+
+                <h3>🔹 پارامتر <span class="code-inline">sep</span> (Separator - جداکننده)</h3>
+                <p>وقتی چند چیز را با کاما از هم جدا می‌کنی، بینشان <strong>فاصله</strong> می‌گذارد. با sep می‌تونی این جداکننده را عوض کنی!</p>
+                <div class="code-block">
+<span class="keyword">print</span>(<span class="string">"الف"</span>, <span class="string">"ب"</span>, <span class="string">"ج"</span>)
+<span class="comment"># خروجی: الف ب ج (فاصله پیش‌فرض)</span>
+
+<span class="keyword">print</span>(<span class="string">"الف"</span>, <span class="string">"ب"</span>, <span class="string">"ج"</span>, sep=<span class="string">"-"</span>)
+<span class="comment"># خروجی: الف-ب-ج</span>
+
+<span class="keyword">print</span>(<span class="string">"الف"</span>, <span class="string">"ب"</span>, <span class="string">"ج"</span>, sep=<span class="string">" ---> "</span>)
+<span class="comment"># خروجی: الف ---> ب ---> ج</span>
+
+<span class="keyword">print</span>(<span class="string">"الف"</span>, <span class="string">"ب"</span>, <span class="string">"ج"</span>, sep=<span class="string">""</span>)
+<span class="comment"># خروجی: الفبج (بدون فاصله)</span>
+                </div>
+
+                <h3>🔹 پارامتر <span class="code-inline">end</span> (پایان خط)</h3>
+                <p>print به طور پیش‌فرض بعد از چاپ، به <strong>خط بعدی</strong> می‌رود. با end می‌تونی این رفتار را عوض کنی!</p>
+                <div class="code-block">
+<span class="comment"># حالت پیش‌فرض: هر print در یک خط جدا</span>
+<span class="keyword">print</span>(<span class="string">"سلام"</span>)
+<span class="keyword">print</span>(<span class="string">"دنیا"</span>)
+<span class="comment"># خروجی:</span>
+<span class="comment"># سلام</span>
+<span class="comment"># دنیا</span>
+
+<span class="comment"># با end: هر دو در یک خط</span>
+<span class="keyword">print</span>(<span class="string">"سلام"</span>, end=<span class="string">" "</span>)
+<span class="keyword">print</span>(<span class="string">"دنیا"</span>)
+<span class="comment"># خروجی: سلام دنیا</span>
+
+<span class="comment"># با end سفارشی</span>
+<span class="keyword">print</span>(<span class="string">"مرحله ۱"</span>, end=<span class="string">" ---> "</span>)
+<span class="keyword">print</span>(<span class="string">"مرحله ۲"</span>)
+<span class="comment"># خروجی: مرحله ۱ ---> مرحله ۲</span>
+                </div>
+
+                <h2>⚠️ خطاهای رایج در Print و راه‌حل آنها</h2>
+
+                <table class="error-table">
+                    <thead>
+                        <tr><th>نام خطا</th><th>علت</th><th>راه‌حل</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="err-name">SyntaxError</td>
+                            <td>فراموش کردن پرانتز یا کوتیشن</td>
+                            <td>مطمئن شو پرانتز باز و بسته داری و متن داخل کوتیشن است</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">NameError</td>
+                            <td>چاپ یک متغیر تعریف‌نشده یا متن بدون کوتیشن</td>
+                            <td>متن را داخل کوتیشن بگذار یا متغیر را قبلاً تعریف کن</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">TypeError</td>
+                            <td>جمع عدد و رشته با +</td>
+                            <td>از کاما استفاده کن یا عدد را با str() به رشته تبدیل کن</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">SyntaxError</td>
+                            <td>مخلوط کردن سینگل و دابل کوتیشن اشتباه</td>
+                            <td>اگه متن شامل دابل کوتیشن است، از سینگل کوتیشن برای محصور کردن استفاده کن و برعکس</td>
+                        </tr>
+                        <tr>
+                            <td class="err-name">IndentationError</td>
+                            <td>فاصله یا تورفتگی اضافی قبل از print</td>
+                            <td>print باید از ابتدای خط شروع شود (بدون فاصله اضافی)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box red">
+                    <strong>⚠️ اشتباه خیلی رایج:</strong> نوشتن print با حروف بزرگ!
+                    <span class="code-inline">Print("سلام")</span> ❌ غلط است!
+                    پایتون به بزرگ و کوچک بودن حروف حساس است. همیشه بنویس <span class="code-inline">print</span> با حروف کوچک.
+                </div>
+
+                <h2>🎯 کاربردهای خلاقانه Print</h2>
+                <p>با print می‌تونی کارهای جالب و خلاقانه‌ای انجام بدی:</p>
+                <ul>
+                    <li>🎨 <strong>رسم اشکال ساده:</strong> با استفاده از * و فاصله، مربع، مثلث و لوزی بکش!</li>
+                    <li>📊 <strong>نمودار متنی:</strong> با تکرار کاراکترها، نمودارهای ساده بساز.</li>
+                    <li>🎮 <strong>بازی‌های متنی:</strong> بازی حدس عدد، سنگ-کاغذ-قیچی، داستان تعاملی.</li>
+                    <li>📋 <strong>جدول و فرم:</strong> با sep و end می‌تونی جدول‌های مرتب بسازی.</li>
+                </ul>
+
+                <div class="code-block">
+<span class="comment"># رسم یک مثلث ساده</span>
+<span class="keyword">print</span>(<span class="string">"   *   "</span>)
+<span class="keyword">print</span>(<span class="string">"  ***  "</span>)
+<span class="keyword">print</span>(<span class="string">" ***** "</span>)
+<span class="keyword">print</span>(<span class="string">"*******"</span>)
+                </div>
+
+                <h2>🧪 تمرین‌های عملی Print</h2>
+                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! (حواست باشه: اول خودت حل کن، بعد جواب رو چک کن!)</p>
+
+                <div class="exercise-grid">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۱</div>
+                                <div class="ex-text">اسم خودت رو توی یه جمله چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("اسم من امیر است")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۲</div>
+                                <div class="ex-text">حاصل جمع ۱۵ و ۳۲ رو چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print(15 + 32)
+# خروجی: 47</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۳</div>
+                                <div class="ex-text">اسم و سنت رو در یک خط چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("امیر", 20, "ساله")
+# خروجی: امیر 20 ساله</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۴</div>
+                                <div class="ex-text">سه کلمه رو با خط تیره (-) از هم جدا کن و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("پایتون", "جاوا", "سی", sep="-")
+# خروجی: پایتون-جاوا-سی</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۵</div>
+                                <div class="ex-text">دو تا print پشت سر هم بنویس که خروجیشون توی یه خط باشه</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("سلام", end=" ")
+print("دنیا")
+# خروجی: سلام دنیا</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۶</div>
+                                <div class="ex-text">با print یه مربع ۳×۳ از ستاره بکش</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("***")
+print("***")
+print("***")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش آزمون -->
+            <div class="quiz-section" id="quizSection">
+                <h3>📝 آزمون مرحله ۶ - دستور Print</h3>
+                <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">
+                    ببینیم print رو چقدر خوب یاد گرفتی؟ (اختیاری)
+                </p>
+
+                <div class="quiz-item" data-question="1" data-correct="2">
+                    <div class="quiz-question">۱. خروجی دستور <span class="code-inline">print("5 + 3")</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> 8</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> 5 + 3</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> 53</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> خطا</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item" data-question="2" data-correct="4">
+                    <div class="quiz-question">۲. کدام یک صحیح است؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q2" value="1"> Print("سلام")</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="2"> print("سلام)</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="3"> print(سلام)</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="4"> print("سلام")</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item" data-question="3" data-correct="1">
+                    <div class="quiz-question">۳. پارامتر sep در print چه کاری انجام می‌دهد؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q3" value="1"> جداکننده بین مقادیر را تعیین می‌کند</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="2"> فاصله از چپ را تعیین می‌کند</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> اندازه فونت را تغییر می‌دهد</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> رنگ متن را عوض می‌کند</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+
+                <div class="quiz-item" data-question="4" data-correct="3">
+                    <div class="quiz-question">۴. خروجی <span class="code-inline">print("سلام", end="***")</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q4" value="1"> سلام*** (و رفتن به خط بعد)</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="2"> خطا می‌دهد</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="3"> سلام*** (بدون رفتن به خط بعد)</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="4"> سلام</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback4"></div>
+                </div>
+
+                <div class="quiz-item" data-question="5" data-correct="2">
+                    <div class="quiz-question">۵. اگر بنویسی <span class="code-inline">print(سلام)</span> چه اتفاقی می‌افتد؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q5" value="1"> چاپ می‌کند: سلام</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="2"> خطای NameError (متغیر سلام تعریف نشده)</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="3"> هیچی چاپ نمی‌کند</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="4"> چاپ می‌کند: 0</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback5"></div>
+                </div>
+
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
+                </div>
+                <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
+            </div>
+
+            <div class="btn-row">
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-05.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-07.html" class="btn btn-primary">🚀 مرحله بعد: متغیرها</a>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
+            const quizResultMsg = document.getElementById('quizResultMsg');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            function createParticles() {
+                const colors = ['#2b9348', '#f0a500', '#4a90d9', '#e07b5a', '#7c5cbf'];
+                for (let i = 0; i < 16; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 14 + 5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.bottom = '-20px';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            function showToast(message, isSuccess = true) {
+                toastMsg.textContent = message;
+                toastMsg.style.background = isSuccess ? 'linear-gradient(115deg, #1f3b2c, #113a25)' : 'linear-gradient(115deg, #5c1a1a, #8b2020)';
+                                toastMsg.classList.remove('show');
+                void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(() => { toastMsg.classList.remove('show'); }, 2800);
+            }
+
+            const userData = JSON.parse(localStorage.getItem('python_academy_user') || 'null');
+            if (userData && userData.fullName) {
+                userNameDisplay.textContent = userData.fullName;
+            }
+
+            checkQuizBtn.addEventListener('click', () => {
+                const quizItems = document.querySelectorAll('.quiz-item');
+                let allCorrect = true;
+                let allAnswered = true;
+                let correctCount = 0;
+                const totalQuestions = quizItems.length;
+
+                document.querySelectorAll('.quiz-feedback').forEach(fb => { fb.textContent = ''; fb.className = 'quiz-feedback'; });
+                document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct-answer', 'wrong-answer'));
+
+                quizItems.forEach(item => {
+                    const questionNum = item.getAttribute('data-question');
+                    const correctAnswer = item.getAttribute('data-correct');
+                    const selectedRadio = item.querySelector(`input[name="q${questionNum}"]:checked`);
+                    const feedbackEl = document.getElementById('feedback' + questionNum);
+
+                    if (!selectedRadio) {
+                        allAnswered = false;
+                        allCorrect = false;
+                        feedbackEl.textContent = '⚠️ لطفاً یک گزینه را انتخاب کن!';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                        return;
+                    }
+
+                    const selectedValue = selectedRadio.value;
+                    const selectedOption = selectedRadio.closest('.quiz-option');
+
+                    if (selectedValue === correctAnswer) {
+                        correctCount++;
+                        selectedOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '✅ صحیح!';
+                        feedbackEl.className = 'quiz-feedback feedback-correct';
+                    } else {
+                        allCorrect = false;
+                        selectedOption.classList.add('wrong-answer');
+                        const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option');
+                        correctOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '❌ نادرست! گزینه صحیح با رنگ سبز مشخص شده.';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                    }
+                });
+
+                if (!allAnswered) {
+                    quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ لطفاً به همه سوالات پاسخ بده!</span>';
+                    return;
+                }
+
+                if (allCorrect) {
+                    quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 تبریک! همه پاسخ‌ها درست بود. print رو کامل یاد گرفتی!</span>';
+                    showToast('🎉 عالی! حالا بریم سراغ متغیرها!', true);
+                } else {
+                    const wrongCount = totalQuestions - correctCount;
+                    quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} سوال اشتباه بود. گزینه‌های سبز رو ببین و دوباره تلاش کن!</span>`;
+                }
+            });
+
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                });
+            });
+
+            console.log('🐍 مرحله ۶: دستور Print | آکادمی بردیا فاتحی');
+        })();
+    </script>
+</body>
+</html>
