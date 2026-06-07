@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مرحله ۴ | نصب پایتون | آکادمی بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348;
+            --green-dark: #1f6e34;
+            --green-light: #e6f4ea;
+            --gold: #f0a500;
+            --gold-light: #fff8e7;
+            --dark: #1f2b3a;
+            --text: #2c3e4e;
+            --text-light: #5a6e85;
+            --bg: #f0f4fa;
+            --white: #ffffff;
+            --red: #d94535;
+            --blue: #4a90d9;
+            --blue-light: #e8f2fd;
+            --radius: 2rem;
+            --radius-sm: 1.5rem;
+            --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle {
+            position: absolute; border-radius: 50%; opacity: 0.1;
+            animation: floatUp 8s infinite ease-in;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.12; }
+            90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        .container { max-width: 900px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+
+        .stage-card {
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .stage-card::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 180px; height: 180px; background: var(--green-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0;
+            animation: blob1 6s infinite alternate;
+        }
+        .stage-card::after {
+            content: ''; position: absolute; bottom: -40px; right: -40px;
+            width: 140px; height: 140px; background: var(--gold-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0;
+            animation: blob2 5s infinite alternate;
+        }
+        @keyframes blob1 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(20px, -15px) scale(1.15); }
+        }
+        @keyframes blob2 {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-20px, 15px) scale(1.1); }
+        }
+        .stage-card>* { position: relative; z-index: 1; }
+
+        @keyframes cardEntry {
+            0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .stage-header {
+            text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem;
+            border-bottom: 2px dashed #dce5f0;
+        }
+        .stage-badge-top {
+            display: inline-block; background: var(--green); color: white;
+            padding: 0.3rem 1.2rem; border-radius: 2rem; font-weight: 700;
+            font-size: 0.85rem; margin-bottom: 0.6rem;
+        }
+        .stage-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+        .stage-header .subtitle { color: var(--text-light); font-size: 0.9rem; }
+
+        .user-greeting {
+            background: var(--green-light); border-radius: 3rem; padding: 0.6rem 1.6rem;
+            display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;
+            color: var(--green-dark); margin-bottom: 1.8rem; font-size: 1rem;
+            animation: float 3s infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-6px); }
+        }
+
+        .lesson-section {
+            background: #fafcfd; border-radius: var(--radius-sm); padding: 1.5rem;
+            margin-bottom: 1.8rem; border: 1px solid #eef2f8; border-right: 5px solid var(--green);
+            line-height: 2.1; color: var(--text); text-align: justify;
+            animation: fadeIn 0.6s 0.2s both;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .lesson-section h2 { font-size: 1.3rem; color: var(--green-dark); margin-bottom: 1rem; font-weight: 800; }
+        .lesson-section h3 { font-size: 1.1rem; color: var(--dark); margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .lesson-section p { margin-bottom: 0.9rem; }
+        .lesson-section ul, .lesson-section ol { padding-right: 1.8rem; margin-bottom: 1rem; }
+        .lesson-section li { margin-bottom: 0.6rem; }
+
+        .highlight-box {
+            background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs);
+            padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold);
+        }
+        .highlight-box.green {
+            background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green);
+        }
+        .highlight-box.blue {
+            background: var(--blue-light); border-color: #b8d0f0; border-right: 4px solid var(--blue);
+        }
+        .highlight-box.red {
+            background: #fff5f5; border-color: #f0c0c0; border-right: 4px solid var(--red);
+        }
+        .code-inline {
+            background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr;
+            display: inline-block; font-size: 0.9rem; color: #1a3a5c;
+        }
+
+        .step-list {
+            list-style: none; padding: 0; counter-reset: step;
+        }
+        .step-list li {
+            counter-increment: step; padding: 0.8rem 1rem; margin-bottom: 0.8rem;
+            background: white; border: 1px solid #e0e7ef; border-radius: var(--radius-xs);
+            display: flex; align-items: center; gap: 1rem; transition: var(--transition);
+        }
+        .step-list li:hover {
+            border-color: var(--green); background: var(--green-light);
+            transform: translateX(-4px);
+        }
+        .step-list li::before {
+            content: counter(step); background: var(--green); color: white;
+            width: 36px; height: 36px; min-width: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem;
+        }
+
+        .os-tabs {
+            display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;
+        }
+        .os-tab {
+            padding: 0.6rem 1.2rem; border-radius: 2rem; cursor: pointer;
+            font-weight: 600; font-size: 0.85rem; border: 2px solid #e0e7ef;
+            background: white; transition: var(--transition);
+        }
+        .os-tab:hover { border-color: var(--green); background: var(--green-light); }
+        .os-tab.active { background: var(--green); color: white; border-color: var(--green); }
+
+        .os-content { display: none; }
+        .os-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+        /* کارت‌های تمرین چرخشی */
+        .exercise-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem; margin: 1.2rem 0;
+        }
+        .flip-card {
+            perspective: 1000px; height: 180px; cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: var(--radius-xs); display: flex; align-items: center;
+            justify-content: center; padding: 1rem; text-align: center;
+            border: 2px solid #e0e7ef;
+        }
+        .flip-card-front {
+            background: linear-gradient(135deg, #ffffff, #f9fbfe);
+            flex-direction: column; gap: 0.5rem;
+        }
+        .flip-card-front .ex-num {
+            background: var(--green); color: white; width: 36px; height: 36px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem;
+        }
+        .flip-card-front .ex-text { font-weight: 600; color: var(--dark); font-size: 0.9rem; }
+        .flip-card-front .ex-hint { font-size: 0.7rem; color: var(--text-light); }
+        .flip-card-back {
+            background: linear-gradient(135deg, #f0faf3, #d4edda);
+            transform: rotateY(180deg); flex-direction: column; gap: 0.4rem;
+            border-color: var(--green);
+        }
+        .flip-card-back .answer-label { font-weight: 700; color: var(--green-dark); font-size: 0.8rem; }
+        .flip-card-back .answer-code {
+            background: #1a3a5c; color: #a8d8a8; padding: 0.5rem 0.8rem;
+            border-radius: 0.5rem; font-family: 'Consolas', 'Courier New', monospace;
+            direction: ltr; font-size: 0.8rem; max-width: 100%; overflow-x: auto;
+        }
+
+        .quiz-section {
+            background: white; border-radius: var(--radius-sm); padding: 1.5rem;
+            margin-top: 1.5rem; border: 2px solid #e0e7ef;
+        }
+        .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
+        .quiz-item {
+            background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs);
+            padding: 1.2rem; margin-bottom: 1rem;
+        }
+        .quiz-question { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option {
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            background: white; padding: 0.6rem 1rem; border-radius: 1rem;
+            transition: var(--transition); border: 1px solid #eef2f8;
+        }
+        .quiz-option:hover { background: #f0f6fa; border-color: #cddfe7; }
+        .quiz-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
+        .quiz-option.correct-answer { background: #d4edda; border-color: #2b9348; }
+        .quiz-option.wrong-answer { background: #fce4e4; border-color: #d94535; }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem; min-height: 1.5rem; }
+        .feedback-correct { color: #1f6e34; }
+        .feedback-wrong { color: #c0392b; }
+
+        .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .btn {
+            padding: 0.8rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.95rem;
+            font-weight: 700; border-radius: 3rem; cursor: pointer; transition: var(--transition);
+            border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #2b9348, #238b3f); color: white;
+            box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4); }
+        .btn-outline { background: white; color: var(--green-dark); border: 2px solid var(--green); }
+        .btn-outline:hover { background: var(--green-light); }
+
+        .toast-notify {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) scale(0.9);
+            background: linear-gradient(115deg, #1f3b2c, #113a25); color: #f3fff9;
+            padding: 0.9rem 2rem; border-radius: 60px; font-weight: 600; font-size: 1rem;
+            box-shadow: 0 20px 30px -12px black; z-index: 1000; opacity: 0; transition: 0.25s;
+            pointer-events: none; white-space: nowrap;
+        }
+        .toast-notify.show { opacity: 1; transform: translateX(-50%) scale(1); }
+
+        .footer-box {
+            margin-top: 1.5rem; text-align: center; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(6px); border-radius: 2rem; padding: 0.9rem 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .footer-text { font-size: 0.9rem; color: #2c3e50; font-weight: 500; }
+        .footer-text span {
+            color: #1f6e3f; font-weight: 800; background: #eafaf1;
+            padding: 0.2rem 0.8rem; border-radius: 30px; display: inline-block;
+        }
+        .support-link {
+            color: #2b9348; font-weight: 600; text-decoration: none; direction: ltr;
+            display: inline-block; margin-top: 0.3rem; font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .stage-card { padding: 1.5rem 1rem; }
+            .stage-header h1 { font-size: 1.4rem; }
+            .lesson-section { padding: 1rem; font-size: 0.9rem; }
+            .btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
+            .exercise-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="stage-card">
+            <div class="stage-header">
+                <span class="stage-badge-top">📚 مرحله ۴ از ۳۱</span>
+                <h1>🐍 نصب پایتون از صفر تا صد</h1>
+                <p class="subtitle">آموزش گام‌به‌گام نصب پایتون روی ویندوز، مک و لینوکس</p>
+            </div>
+
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان! امروز پایتون رو نصب می‌کنیم 🐍
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h2>🐍 پایتون چیه و چرا باید نصبش کنیم؟</h2>
+                <p>
+                    پایتون یه <strong>زبان برنامه‌نویسی</strong> است که کدهایی که می‌نویسی رو
+                    خط به خط می‌خونه و اجرا می‌کنه. بهش می‌گن <strong>مفسر (Interpreter)</strong>.
+                    برای اینکه بتونی کد پایتون بنویسی و اجرا کنی، اول باید خود پایتون رو
+                    روی کامپیوترت نصب کنی. این مثل این می‌مونه که بخوای با کسی تلفنی حرف بزنی،
+                    اول باید گوشی تلفن داشته باشی!
+                </p>
+
+                <div class="highlight-box green">
+                    <strong>✅ خبر خوب:</strong> پایتون <strong>کاملاً رایگانه</strong> و روی
+                    ویندوز، مک و لینوکس کار می‌کنه. نصبش هم خیلی ساده‌ست و کمتر از ۵ دقیقه طول می‌کشه!
+                </div>
+
+                <h2>📥 دانلود پایتون</h2>
+                <p>برای دانلود پایتون، باید بری به سایت رسمی پایتون:</p>
+                <div class="highlight-box blue">
+                    <strong>🌐 آدرس سایت:</strong> <span class="code-inline" style="direction:ltr;">https://www.python.org/downloads/</span>
+                    <br>وارد این سایت بشو. خود سایت معمولاً آخرین نسخه پایتون رو بهت پیشنهاد میده.
+                    روی دکمه زرد رنگی که نوشته <strong>"Download Python"</strong> کلیک کن.
+                </div>
+
+                <h2>💻 نصب پایتون روی سیستم‌عامل‌های مختلف</h2>
+
+                <!-- تب‌های سیستم عامل -->
+                <div class="os-tabs">
+                    <div class="os-tab active" data-os="windows">🪟 ویندوز</div>
+                    <div class="os-tab" data-os="mac">🍎 مک</div>
+                    <div class="os-tab" data-os="linux">🐧 لینوکس</div>
+                </div>
+
+                <!-- ویندوز -->
+                <div class="os-content active" id="os-windows">
+                    <h3>🪟 نصب روی ویندوز</h3>
+                    <ol class="step-list">
+                        <li>فایل دانلود شده (معمولاً با اسم <span class="code-inline">python-3.x.x-amd64.exe</span>) رو باز کن.</li>
+                        <li>خیلی مهم: <strong>حتماً تیک گزینه «Add Python to PATH» رو بزن!</strong> این کار باعث میشه از هر جای ویندوز بتونی پایتون رو اجرا کنی.</li>
+                        <li>روی «Install Now» کلیک کن و صبر کن تا نصب تموم بشه.</li>
+                        <li>بعد از اتمام نصب، پنجره Command Prompt رو باز کن (کلید Windows + R رو بزن، بنویس <span class="code-inline">cmd</span> و Enter کن).</li>
+                        <li>توی CMD بنویس: <span class="code-inline">python --version</span> و Enter بزن. اگه نسخه پایتون رو نشون داد (مثلاً Python 3.12.0)، یعنی نصب موفق بوده!</li>
+                    </ol>
+                    <div class="highlight-box red">
+                        <strong>⚠️ نکته خیلی مهم:</strong> اگه تیک «Add Python to PATH» رو نزنی،
+                        موقع اجرای پایتون به خطا می‌خوری! اگه یادت رفت، باید پایتون رو دوباره نصب کنی
+                        یا مسیر پایتون رو دستی به PATH ویندوز اضافه کنی.
+                    </div>
+                </div>
+
+                <!-- مک -->
+                <div class="os-content" id="os-mac">
+                    <h3>🍎 نصب روی مک</h3>
+                    <ol class="step-list">
+                        <li>فایل دانلود شده (با پسوند <span class="code-inline">.pkg</span>) رو باز کن.</li>
+                        <li>دستورالعمل‌های نصب رو دنبال کن (Continue > Continue > Agree > Install).</li>
+                        <li>بعد از نصب، برنامه <strong>Terminal</strong> رو باز کن (از Launchpad یا Spotlight جستجو کن).</li>
+                        <li>توی Terminal بنویس: <span class="code-inline">python3 --version</span> و Enter بزن. باید نسخه پایتون رو نشون بده.</li>
+                    </ol>
+                    <div class="highlight-box blue">
+                        <strong>🍎 نکته برای مک:</strong> مک معمولاً یه نسخه قدیمی از پایتون رو از قبل
+                        نصب داره (پایتون ۲). ما به پایتون ۳ نیاز داریم. برای اجرای پایتون ۳،
+                        همیشه از دستور <span class="code-inline">python3</span> استفاده کن (نه <span class="code-inline">python</span>).
+                    </div>
+                </div>
+
+                <!-- لینوکس -->
+                <div class="os-content" id="os-linux">
+                    <h3>🐧 نصب روی لینوکس (اوبونتو)</h3>
+                    <ol class="step-list">
+                        <li>Terminal رو باز کن (Ctrl + Alt + T).</li>
+                        <li>اول مخازن رو آپدیت کن: <span class="code-inline">sudo apt update</span></li>
+                        <li>بعد پایتون رو نصب کن: <span class="code-inline">sudo apt install python3</span></li>
+                        <li>برای نصب pip (مدیریت بسته‌ها): <span class="code-inline">sudo apt install python3-pip</span></li>
+                        <li>با دستور <span class="code-inline">python3 --version</span> نصب رو تأیید کن.</li>
+                    </ol>
+                    <div class="highlight-box green">
+                                                <strong>🐧 نکته:</strong> خیلی از توزیع‌های لینوکس از قبل پایتون ۳ رو
+                        نصب دارن. با دستور <span class="code-inline">python3 --version</span>
+                        می‌تونی چک کنی.
+                    </div>
+                </div>
+
+                <h2>🧪 تست نهایی: مطمئن شو پایتون کار می‌کنه!</h2>
+                <p>
+                    حالا که پایتون رو نصب کردی، بیا یه تست ساده انجام بدیم. توی CMD (ویندوز)
+                    یا Terminal (مک/لینوکس) این دستور رو بزن:
+                </p>
+                <div class="highlight-box blue">
+                    <span class="code-inline" style="font-size:1rem;">python</span> (ویندوز)
+                    یا <span class="code-inline" style="font-size:1rem;">python3</span> (مک/لینوکس)
+                </div>
+                <p>
+                    اگه یه چیزی شبیه این دیدی، یعنی همه چی عالیه:
+                </p>
+                <div class="highlight-box green">
+                    <code style="direction:ltr;display:block;color:#1a3a5c;">
+                        Python 3.12.0 (main, Oct 2 2023, 13:22:15)<br>
+                        Type "help", "copyright", "credits" or "license" for more information.<br>
+                        >>>
+                    </code>
+                </div>
+                <p>
+                    اون علامت <span class="code-inline">>>></span> یعنی پایتون آماده‌ست و منتظر
+                    دستورات توئه! برای خروج، بنویس <span class="code-inline">exit()</span> و Enter بزن.
+                </p>
+
+                <div class="highlight-box">
+                    <strong>🎉 تبریک!</strong> پایتون با موفقیت روی سیستم تو نصب شد!
+                    حالا آماده‌ای که بریم سراغ نصب VS Code (مرحله بعد) و بعدش اولین کد پایتون رو بنویسیم! 🚀
+                </div>
+            </div>
+
+            <!-- بخش آزمون -->
+            <div class="quiz-section" id="quizSection">
+                <h3>📝 آزمون مرحله ۴ - نصب پایتون</h3>
+                <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">
+                    ببینیم نکات نصب رو خوب یاد گرفتی؟ (اختیاری)
+                </p>
+
+                <div class="quiz-item" data-question="1" data-correct="2">
+                    <div class="quiz-question">۱. موقع نصب پایتون روی ویندوز، چه تیکی رو حتماً باید بزنی؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> Install for all users</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> Add Python to PATH</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> Install launcher</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> Create shortcuts</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item" data-question="2" data-correct="4">
+                    <div class="quiz-question">۲. بعد از نصب، چطور بفهمی پایتون درست نصب شده؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q2" value="1"> کامپیوتر رو ریستارت کنی</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="2"> فایل نصبی رو دوباره اجرا کنی</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="3"> وارد سایت پایتون بشی</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="4"> توی CMD یا Terminal بنویسی python --version</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item" data-question="3" data-correct="1">
+                    <div class="quiz-question">۳. روی مک، برای اجرای پایتون ۳ از چه دستوری استفاده می‌کنی؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q3" value="1"> python3</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="2"> python</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> py3</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> python2</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
+                </div>
+                <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
+            </div>
+
+            <!-- دکمه‌های ناوبری -->
+            <div class="btn-row">
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-03.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-05.html" class="btn btn-primary">🚀 مرحله بعد: نصب VS Code</a>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
+            const quizResultMsg = document.getElementById('quizResultMsg');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            function createParticles() {
+                const colors = ['#2b9348', '#f0a500', '#4a90d9', '#e07b5a', '#7c5cbf'];
+                for (let i = 0; i < 16; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 14 + 5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.bottom = '-20px';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            function showToast(message, isSuccess = true) {
+                toastMsg.textContent = message;
+                toastMsg.style.background = isSuccess ? 'linear-gradient(115deg, #1f3b2c, #113a25)' : 'linear-gradient(115deg, #5c1a1a, #8b2020)';
+                toastMsg.classList.remove('show');
+                void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(() => { toastMsg.classList.remove('show'); }, 2800);
+            }
+
+            const userData = JSON.parse(localStorage.getItem('python_academy_user') || 'null');
+            if (userData && userData.fullName) {
+                userNameDisplay.textContent = userData.fullName;
+            }
+
+            // ==================== تب‌های سیستم عامل ====================
+            const osTabs = document.querySelectorAll('.os-tab');
+            const osContents = document.querySelectorAll('.os-content');
+
+            osTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    osTabs.forEach(t => t.classList.remove('active'));
+                    osContents.forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    const os = tab.getAttribute('data-os');
+                    document.getElementById('os-' + os).classList.add('active');
+                });
+            });
+
+            // ==================== آزمون ====================
+            checkQuizBtn.addEventListener('click', () => {
+                const quizItems = document.querySelectorAll('.quiz-item');
+                let allCorrect = true;
+                let allAnswered = true;
+                let correctCount = 0;
+                const totalQuestions = quizItems.length;
+
+                document.querySelectorAll('.quiz-feedback').forEach(fb => { fb.textContent = ''; fb.className = 'quiz-feedback'; });
+                document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct-answer', 'wrong-answer'));
+
+                quizItems.forEach(item => {
+                    const questionNum = item.getAttribute('data-question');
+                    const correctAnswer = item.getAttribute('data-correct');
+                    const selectedRadio = item.querySelector(`input[name="q${questionNum}"]:checked`);
+                    const feedbackEl = document.getElementById('feedback' + questionNum);
+
+                    if (!selectedRadio) {
+                        allAnswered = false;
+                        allCorrect = false;
+                        feedbackEl.textContent = '⚠️ لطفاً یک گزینه را انتخاب کن!';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                        return;
+                    }
+
+                    const selectedValue = selectedRadio.value;
+                    const selectedOption = selectedRadio.closest('.quiz-option');
+
+                    if (selectedValue === correctAnswer) {
+                        correctCount++;
+                        selectedOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '✅ صحیح!';
+                        feedbackEl.className = 'quiz-feedback feedback-correct';
+                    } else {
+                        allCorrect = false;
+                        selectedOption.classList.add('wrong-answer');
+                        const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option');
+                        correctOption.classList.add('correct-answer');
+                        feedbackEl.textContent = '❌ نادرست! گزینه صحیح با رنگ سبز مشخص شده.';
+                        feedbackEl.className = 'quiz-feedback feedback-wrong';
+                    }
+                });
+
+                if (!allAnswered) {
+                    quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ لطفاً به همه سوالات پاسخ بده!</span>';
+                    return;
+                }
+
+                if (allCorrect) {
+                    quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 تبریک! همه پاسخ‌ها درست بود. آماده‌ای برای نصب VS Code!</span>';
+                    showToast('🎉 عالی! پایتون رو خوب یاد گرفتی!', true);
+                } else {
+                    const wrongCount = totalQuestions - correctCount;
+                    quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} سوال اشتباه بود. گزینه‌های سبز رو ببین و دوباره تلاش کن!</span>`;
+                }
+            });
+
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    if (radio) radio.checked = true;
+                });
+            });
+
+            console.log('🐍 مرحله ۴: نصب پایتون | آکادمی بردیا فاتحی');
+        })();
+    </script>
+</body>
+</html>
