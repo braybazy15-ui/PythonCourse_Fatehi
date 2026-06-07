@@ -69,6 +69,7 @@
         .highlight-box { background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs); padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold); }
         .highlight-box.green { background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green); }
         .highlight-box.purple { background: var(--purple-light); border-color: #d0c0f0; border-right: 4px solid var(--purple); }
+        .highlight-box.red { background: #fff5f5; border-color: #f0c0c0; border-right: 4px solid var(--red); }
         .code-inline { background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; display: inline-block; font-size: 0.9rem; color: #1a3a5c; }
         .code-block { background: #1e2b3a; color: #a8d8a8; padding: 1rem 1.2rem; border-radius: 1rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.9rem; overflow-x: auto; margin: 1rem 0; line-height: 1.8; white-space: pre-wrap; word-break: break-all; }
         .code-block .keyword { color: #569cd6; } .code-block .string { color: #ce9178; } .code-block .number { color: #b5cea8; } .code-block .comment { color: #6a9955; } .code-block .var-name { color: #9cdcfe; }
@@ -77,8 +78,8 @@
         .review-card:hover { border-color: var(--purple); background: var(--purple-light); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
         .review-card h4 { font-size: 1rem; color: #5a3f9a; margin-bottom: 0.5rem; font-weight: 700; }
         .review-card p { font-size: 0.85rem; color: var(--text); line-height: 1.8; }
-        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
-        .flip-card { perspective: 1000px; height: 210px; cursor: pointer; }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .flip-card { perspective: 1000px; height: 220px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; border: 2px solid #e0e7ef; }
@@ -129,7 +130,7 @@
             <div class="stage-header">
                 <span class="stage-badge-top">📚 مرحله ۸ از ۳۱</span>
                 <h1>📝 مرور و جمع‌بندی ۱</h1>
-                <p class="subtitle">مرور کامل print و متغیرها + ۱۰ تمرین متنوع</p>
+                <p class="subtitle">مرور کامل دستور print و متغیرها + ۱۲ تمرین متنوع</p>
             </div>
 
             <div style="text-align:center;">
@@ -139,225 +140,286 @@
             </div>
 
             <div class="lesson-section">
-                <h2>🎯 چرا مرور و جمع‌بندی مهمه؟</h2>
+                <h2>🎯 چرا مرور و جمع‌بندی مهم است؟</h2>
                 <p>
-                    تا اینجا دو تا از مهم‌ترین مفاهیم برنامه‌نویسی رو یاد گرفتی: <strong>print</strong> و <strong>متغیرها</strong>.
-                    حالا وقتشه که همه چی رو یه جا دوره کنیم، تمرین بیشتری حل کنیم،
-                    و مطمئن بشیم همه چی رو کامل یاد گرفتی قبل از اینکه بریم سراغ مباحث جدید!
+                    تا اینجای کار، دو تا از مهم‌ترین و پایه‌ای‌ترین مفاهیم برنامه‌نویسی رو یاد گرفتی:
+                    <strong>دستور print</strong> برای نمایش خروجی و <strong>متغیرها</strong> برای ذخیره‌سازی اطلاعات.
+                    این دو مفهوم، الفبای برنامه‌نویسی هستند. بدون تسلط بر این‌ها، یادگیری مباحث بعدی سخت می‌شود.
+                </p>
+                <p>
+                    حالا وقتش رسیده که همه چیز رو یک‌جا دوره کنیم، تمرین‌های بیشتری حل کنیم،
+                    و مطمئن بشویم که پایه‌ات کاملاً محکم شده است. یادت باشد:
+                    <strong>برنامه‌نویسی با دیدن و خواندن یاد گرفته نمی‌شود، با نوشتن و تمرین کردن یاد گرفته می‌شود!</strong>
                 </p>
 
                 <div class="highlight-box purple">
-                    <strong>🧠 روش مطالعه این جلسه:</strong> اول خلاصه‌ها رو بخون، بعد تمرین‌ها رو
-                    <strong>حتماً خودت حل کن</strong> (بدون نگاه کردن به جواب!)،
-                    سپس جواب رو چک کن. در آخر تست‌ها رو بزن.
+                    <strong>🧠 روش مطالعه این جلسه:</strong>
+                    <br>۱. ابتدا خلاصه‌های هر درس را با دقت بخوان
+                    <br>۲. تمرین‌ها را <strong>حتماً خودت حل کن</strong> (بدون نگاه کردن به جواب!)
+                    <br>۳. روی کارت کلیک کن و جواب را ببین
+                    <br>۴. اگر اشتباه کردی، دوباره تمرین را حل کن
+                    <br>۵. در انتها، تست‌ها را بزن تا سطح خودت را بسنجی
                 </div>
 
-                <h2>📋 خلاصه درس Print</h2>
+                <h2>📋 خلاصه کامل درس Print</h2>
                 <div class="review-grid">
                     <div class="review-card">
                         <h4>🖨️ تعریف Print</h4>
-                        <p>تابعی برای نمایش متن، عدد یا متغیر روی صفحه. هر چیزی داخل پرانتز بذاری رو چاپ می‌کنه.</p>
+                        <p>تابعی برای نمایش متن، عدد یا متغیر روی صفحه نمایش. هر چیزی داخل پرانتز بگذاری را چاپ می‌کند.</p>
                     </div>
                     <div class="review-card">
-                        <h4>📝 چاپ متن</h4>
-                        <p>متن باید داخل " " یا ' ' باشه: <span class="code-inline">print("Hello")</span></p>
+                        <h4>📝 چاپ متن (رشته)</h4>
+                        <p>متن باید داخل <span class="code-inline">" "</span> یا <span class="code-inline">' '</span> باشد: <span class="code-inline">print("Hello")</span></p>
                     </div>
                     <div class="review-card">
                         <h4>🔢 چاپ عدد</h4>
-                        <p>عدد بدون کوتیشن: <span class="code-inline">print(42)</span> - می‌تونی محاسبات انجام بدی: <span class="code-inline">print(5 + 3)</span></p>
+                        <p>عدد بدون کوتیشن نوشته می‌شود: <span class="code-inline">print(42)</span> - می‌توانی محاسبات ریاضی انجام دهی: <span class="code-inline">print(5 + 3)</span></p>
                     </div>
                     <div class="review-card">
                         <h4>➕ ترکیب با کاما</h4>
-                        <p>با کاما چند چیز رو ترکیب کن: <span class="code-inline">print("Age:", 25)</span> ← فاصله خودکار</p>
+                        <p>با کاما چند مقدار را ترکیب کن: <span class="code-inline">print("سن:", 25)</span> ← به‌طور خودکار فاصله می‌گذارد</p>
                     </div>
                     <div class="review-card">
                         <h4>🔗 پارامتر sep</h4>
-                        <p>جداکننده بین مقادیر: <span class="code-inline">print("a", "b", sep="-")</span> ← a-b</p>
+                        <p>جداکننده بین مقادیر را تعیین می‌کند: <span class="code-inline">print("الف", "ب", sep="-")</span> ← الف-ب</p>
                     </div>
                     <div class="review-card">
                         <h4>⏭️ پارامتر end</h4>
-                        <p>پایان خط: <span class="code-inline">print("Hi", end=" ")</span> ← خط بعدی نمی‌ره</p>
+                        <p>پایان خط را تعیین می‌کند: <span class="code-inline">print("سلام", end=" ")</span> ← به خط بعدی نمی‌رود</p>
                     </div>
                 </div>
 
-                <h2>📋 خلاصه درس متغیرها</h2>
+                <h2>📋 خلاصه کامل درس متغیرها</h2>
                 <div class="review-grid">
                     <div class="review-card">
                         <h4>📦 تعریف متغیر</h4>
-                        <p>یه اسم برای ذخیره یه مقدار: <span class="code-inline">name = "Ali"</span></p>
+                        <p>یک اسم برای ذخیره یک مقدار: <span class="code-inline">name = "Ali"</span></p>
                     </div>
                     <div class="review-card">
                         <h4>📝 قوانین نام‌گذاری</h4>
-                        <p>با عدد شروع نشه، فاصله نداشته باشه، کاراکتر خاص ممنوع، فقط حروف و اعداد و _</p>
+                        <p>با عدد شروع نشود، فاصله نداشته باشد، کاراکتر خاص ممنوع، فقط حروف انگلیسی و اعداد و _</p>
                     </div>
                     <div class="review-card">
                         <h4>🔄 تغییر مقدار</h4>
-                        <p>مقدار جدید جایگزین قدیمی میشه: <span class="code-inline">x = 5</span> بعد <span class="code-inline">x = 10</span></p>
+                        <p>مقدار جدید جایگزین قدیمی می‌شود: <span class="code-inline">x = 5</span> سپس <span class="code-inline">x = 10</span></p>
                     </div>
                     <div class="review-card">
                         <h4>🧪 انواع داده</h4>
-                        <p>String (متن), Integer (عدد صحیح), Float (اعشاری), Boolean (True/False)</p>
+                        <p>String (متن), Integer (عدد صحیح), Float (اعشاری), Boolean (درست/نادرست)</p>
                     </div>
                     <div class="review-card">
-                        <h4>🖨️ با Print</h4>
-                        <p>با کاما یا f-string: <span class="code-inline">print(f"Name: {name}")</span></p>
+                        <h4>🖨️ استفاده با Print</h4>
+                        <p>با کاما یا f-string: <span class="code-inline">print(f"نام: {name}")</span></p>
                     </div>
                     <div class="review-card">
-                        <h4>⚠️ خطاها</h4>
+                        <h4>⚠️ خطاهای رایج</h4>
                         <p>NameError (تعریف نشده)، SyntaxError (اسم غیرمجاز)، TypeError (جمع عدد و رشته با +)</p>
                     </div>
                 </div>
 
-                <h2>🧪 ۱۰ تمرین متنوع (Print + متغیر)</h2>
-                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! <strong>اول خودت حل کن، بعد جواب رو چک کن!</strong></p>
+                <h2>🧪 ۱۲ تمرین متنوع (Print + متغیر)</h2>
+                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! <strong>اول خودت حل کن، بعد جواب را چک کن!</strong></p>
 
                 <div class="exercise-grid">
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۱</div>
-                                <div class="ex-text">اسم، سن و شهرت رو در متغیر بریز و با f-string در یک جمله چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">اسم خودت را در یک متغیر بریز و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
                                 <div class="answer-code">name = "Amir"
-age = 25
-city = "Shiraz"
-print(f"I am {name}, {age} years old from {city}")</div>
+print(name)
+# خروجی: Amir</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۲</div>
-                                <div class="ex-text">دو عدد رو جمع کن و نتیجه رو با توضیح چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">دو عدد را جمع کن و نتیجه را با توضیح چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
                                 <div class="answer-code">a = 45
 b = 55
-result = a + b
-print("Sum:", result)
-# Sum: 100</div>
+print("مجموع:", a + b)
+# خروجی: مجموع: 100</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۳</div>
-                                <div class="ex-text">با sep، سه کلمه رو با خط تیره جدا کن و چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">با sep سه کلمه را با خط تیره جدا کن</div>
+                                                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
-                                                        <div class="flip-card-back">
+                            <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
-                                <div class="answer-code">print("Loading", end="...")
-print("Done!")
-# Loading...Done!</div>
+                                <div class="answer-code">print("Python", "Java", "C++", sep=" - ")
+# خروجی: Python - Java - C++</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۴</div>
+                                <div class="ex-text">با end دو print را در یک خط بنویس</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("در حال بارگذاری", end="...")
+print("تمام شد!")
+# خروجی: در حال بارگذاری...تمام شد!</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۵</div>
-                                <div class="ex-text">مقدار متغیر score رو از 0 به 100 تغییر بده و هر مرحله چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">مقدار score را از 0 به 100 تغییر بده و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
                                 <div class="answer-code">score = 0
 print(score)  # 0
-score = 50
-print(score)  # 50
 score = 100
 print(score)  # 100</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۶</div>
-                                <div class="ex-text">طول، عرض و ارتفاع مکعب رو در متغیر بریز و حجم رو چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">طول و عرض مستطیل را در متغیر بریز و مساحت را چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
                                 <div class="answer-code">length = 10
 width = 5
-height = 3
-volume = length * width * height
-print("Volume:", volume)
-# Volume: 150</div>
+area = length * width
+print("مساحت:", area)
+# خروجی: مساحت: 50</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="exercise-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۷</div>
-                                <div class="ex-text">یه متغیر Boolean بساز و با f-string وضعیت دانشجو بودن رو چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">با f-string اسم و سن را در یک جمله چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
-                                <div class="answer-code">is_student = True
-print(f"Student status: {is_student}")
-# Student status: True</div>
+                                <div class="answer-code">name = "Sara"
+age = 22
+print(f"اسم من {name} و سن من {age} است")
+# خروجی: اسم من Sara و سن من 22 است</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۸</div>
-                                <div class="ex-text">سه متغیر رو در یک خط تعریف کن و هر سه رو چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">سه متغیر را در یک خط تعریف کن و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
                                 <div class="answer-code">x, y, z = 10, 20, 30
 print(x, y, z)
-# 10 20 30</div>
+# خروجی: 10 20 30</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۹</div>
-                                <div class="ex-text">مقادیر دو متغیر color1 و color2 رو با هم عوض کن و چاپ کن</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">مقادیر دو متغیر را با هم عوض کن و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
-                                <div class="answer-code">color1 = "Red"
-color2 = "Blue"
-color1, color2 = color2, color1
-print(color1, color2)
-# Blue Red</div>
+                                <div class="answer-code">first = "قرمز"
+second = "آبی"
+first, second = second, first
+print(first, second)
+# خروجی: آبی قرمز</div>
                             </div>
                         </div>
                     </div>
+
                     <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="ex-num">۱۰</div>
-                                <div class="ex-text">با print یه شکل مربع ۴×۴ از کاراکتر # بکش</div>
-                                <div class="ex-hint">👆 کلیک کن تا جواب رو ببینی</div>
+                                <div class="ex-text">یه متغیر Boolean بساز و وضعیت را چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
                             </div>
                             <div class="flip-card-back">
                                 <div class="answer-label">✅ پاسخ:</div>
-                                <div class="answer-code">print("####")
-print("####")
-print("####")
-print("####")</div>
+                                <div class="answer-code">is_student = True
+print(f"وضعیت دانشجویی: {is_student}")
+# خروجی: وضعیت دانشجویی: True</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۱۱</div>
+                                <div class="ex-text">حاصل ضرب سه عدد را در متغیر بریز و چاپ کن</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">a, b, c = 2, 3, 4
+result = a * b * c
+print("حاصل ضرب:", result)
+# خروجی: حاصل ضرب: 24</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="ex-num">۱۲</div>
+                                <div class="ex-text">با print یک مثلث ساده با ستاره بکش</div>
+                                <div class="ex-hint">👆 کلیک کن تا جواب را ببینی</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="answer-label">✅ پاسخ:</div>
+                                <div class="answer-code">print("  *  ")
+print(" *** ")
+print("*****")
+# خروجی:
+#   *
+#  ***
+# *****</div>
                             </div>
                         </div>
                     </div>
@@ -367,22 +429,22 @@ print("####")</div>
             <div class="quiz-section" id="quizSection">
                 <h3>📝 آزمون جامع - Print و متغیرها</h3>
                 <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">
-                    ۶ سوال ترکیبی برای سنجش کامل یادگیری (اختیاری)
+                    ۸ سوال ترکیبی برای سنجش کامل یادگیری (اختیاری)
                 </p>
 
                 <div class="quiz-item" data-question="1" data-correct="3">
-                    <div class="quiz-question">۱. خروجی <span class="code-inline">print("Result:", 10 + 5)</span> چیست؟</div>
+                    <div class="quiz-question">۱. خروجی <span class="code-inline">print("نتیجه:", 10 + 5)</span> چیست؟</div>
                     <div class="quiz-options">
-                        <label class="quiz-option"><input type="radio" name="q1" value="1"> Result: 10 + 5</label>
-                        <label class="quiz-option"><input type="radio" name="q1" value="2"> Result: 105</label>
-                        <label class="quiz-option"><input type="radio" name="q1" value="3"> Result: 15</label>
-                        <label class="quiz-option"><input type="radio" name="q1" value="4"> Error</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> نتیجه: 10 + 5</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> نتیجه: 105</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> نتیجه: 15</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> خطا</label>
                     </div>
                     <div class="quiz-feedback" id="feedback1"></div>
                 </div>
 
                 <div class="quiz-item" data-question="2" data-correct="2">
-                    <div class="quiz-question">۲. بعد از <span class="code-inline">x = 7; x = x + 3</span> مقدار x چیست؟</div>
+                    <div class="quiz-question">۲. بعد از <span class="code-inline">x = 7</span> و <span class="code-inline">x = x + 3</span> مقدار x چیست؟</div>
                     <div class="quiz-options">
                         <label class="quiz-option"><input type="radio" name="q2" value="1"> 7</label>
                         <label class="quiz-option"><input type="radio" name="q2" value="2"> 10</label>
@@ -397,8 +459,8 @@ print("####")</div>
                     <div class="quiz-options">
                         <label class="quiz-option"><input type="radio" name="q3" value="1"> A*B!</label>
                         <label class="quiz-option"><input type="radio" name="q3" value="2"> A B!</label>
-                        <label class="quiz-option"><input type="radio" name="q3" value="3"> A*B! (and new line)</label>
-                        <label class="quiz-option"><input type="radio" name="q3" value="4"> Error</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> A*B! (و رفتن به خط بعد)</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> خطا</label>
                     </div>
                     <div class="quiz-feedback" id="feedback3"></div>
                 </div>
@@ -415,12 +477,12 @@ print("####")</div>
                 </div>
 
                 <div class="quiz-item" data-question="5" data-correct="2">
-                    <div class="quiz-question">۵. خروجی <span class="code-inline">name = "Sara"; print(f"Hello {name}")</span> چیست؟</div>
+                    <div class="quiz-question">۵. خروجی <span class="code-inline">name = "Sara"; print(f"سلام {name}")</span> چیست؟</div>
                     <div class="quiz-options">
-                        <label class="quiz-option"><input type="radio" name="q5" value="1"> Hello name</label>
-                        <label class="quiz-option"><input type="radio" name="q5" value="2"> Hello Sara</label>
-                        <label class="quiz-option"><input type="radio" name="q5" value="3"> Hello {name}</label>
-                        <label class="quiz-option"><input type="radio" name="q5" value="4"> Error</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="1"> سلام name</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="2"> سلام Sara</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="3"> سلام {name}</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="4"> خطا</label>
                     </div>
                     <div class="quiz-feedback" id="feedback5"></div>
                 </div>
@@ -436,22 +498,44 @@ print("####")</div>
                     <div class="quiz-feedback" id="feedback6"></div>
                 </div>
 
+                <div class="quiz-item" data-question="7" data-correct="1">
+                    <div class="quiz-question">۷. خروجی <span class="code-inline">print("5" * 3)</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q7" value="1"> 555</label>
+                        <label class="quiz-option"><input type="radio" name="q7" value="2"> 15</label>
+                        <label class="quiz-option"><input type="radio" name="q7" value="3"> 53</label>
+                        <label class="quiz-option"><input type="radio" name="q7" value="4"> خطا</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback7"></div>
+                </div>
+
+                <div class="quiz-item" data-question="8" data-correct="4">
+                    <div class="quiz-question">۸. تفاوت <span class="code-inline">123</span> و <span class="code-inline">"123"</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q8" value="1"> هیچ تفاوتی ندارند</label>
+                        <label class="quiz-option"><input type="radio" name="q8" value="2"> اولی بزرگتر است</label>
+                        <label class="quiz-option"><input type="radio" name="q8" value="3"> دومی سریعتر اجرا می‌شود</label>
+                        <label class="quiz-option"><input type="radio" name="q8" value="4"> اولی عدد است، دومی رشته (متن)</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback8"></div>
+                </div>
+
                 <div style="text-align:center;margin-top:1.5rem;">
-                    <button class="btn btn-primary" id="checkQuizBtn">✅ Check Answers</button>
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
                 </div>
                 <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
             </div>
 
             <div class="btn-row">
-                <a href="../dashboard.html" class="btn btn-outline">🏠 Back to Dashboard</a>
-                <a href="stage-07.html" class="btn btn-outline">⬅️ Previous Stage</a>
-                <a href="stage-09.html" class="btn btn-primary">🚀 Next Stage: Input</a>
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-07.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-09.html" class="btn btn-primary">🚀 مرحله بعد: گرفتن ورودی</a>
             </div>
         </div>
 
         <div class="footer-box">
-            <div class="footer-text">✨ Designed by: <span>Bardia Fatehi</span> ✨</div>
-            <div>📩 Support: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
         </div>
     </div>
 
@@ -467,7 +551,7 @@ print("####")</div>
 
             function createParticles() {
                 const colors = ['#7c5cbf', '#f0a500', '#4a90d9', '#2b9348', '#e07b5a'];
-                for (let i = 0; i < 16; i++) {
+                for (let i = 0; i < 18; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
                     const size = Math.random() * 14 + 5;
@@ -489,7 +573,7 @@ print("####")</div>
                 toastMsg.classList.remove('show');
                 void toastMsg.offsetWidth;
                 toastMsg.classList.add('show');
-                setTimeout(() => { toastMsg.classList.remove('show'); }, 2800);
+                setTimeout(() => { toastMsg.classList.remove('show'); }, 3000);
             }
 
             const userData = JSON.parse(localStorage.getItem('python_academy_user') || 'null');
@@ -516,7 +600,7 @@ print("####")</div>
                     if (!selectedRadio) {
                         allAnswered = false;
                         allCorrect = false;
-                        feedbackEl.textContent = '⚠️ Please select an option!';
+                        feedbackEl.textContent = '⚠️ لطفاً یک گزینه را انتخاب کن!';
                         feedbackEl.className = 'quiz-feedback feedback-wrong';
                         return;
                     }
@@ -527,29 +611,31 @@ print("####")</div>
                     if (selectedValue === correctAnswer) {
                         correctCount++;
                         selectedOption.classList.add('correct-answer');
-                        feedbackEl.textContent = '✅ Correct!';
+                        feedbackEl.textContent = '✅ صحیح! آفرین!';
                         feedbackEl.className = 'quiz-feedback feedback-correct';
                     } else {
                         allCorrect = false;
                         selectedOption.classList.add('wrong-answer');
-                        const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option');
+                                  const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option');
                         correctOption.classList.add('correct-answer');
-                        feedbackEl.textContent = '❌ Wrong! Correct answer is green.';
+                        feedbackEl.textContent = '❌ نادرست! گزینه صحیح با رنگ سبز مشخص شده است.';
                         feedbackEl.className = 'quiz-feedback feedback-wrong';
                     }
                 });
 
                 if (!allAnswered) {
-                    quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ Please answer all questions!</span>';
+                    quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ لطفاً به همه سوالات پاسخ بده!</span>';
+                    showToast('⚠️ همه سوالات باید پاسخ داده شوند!', false);
                     return;
                 }
 
                 if (allCorrect) {
-                    quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 Perfect! You have mastered Print & Variables!</span>';
-                    showToast('🎉 Excellent! Ready for the next topic!', true);
+                    quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 تبریک! همه پاسخ‌ها درست بود. تو print و متغیرها رو کامل یاد گرفتی!</span>';
+                    showToast('🎉 عالی! آماده‌ای برای مرحله بعد!', true);
                 } else {
                     const wrongCount = totalQuestions - correctCount;
-                    quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} wrong. Check the green options and try again!</span>`;
+                    quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} سوال اشتباه بود. گزینه‌های سبز را ببین و دوباره تلاش کن!</span>`;
+                    showToast('❌ دوباره تلاش کن!', false);
                 }
             });
 
@@ -560,7 +646,7 @@ print("####")</div>
                 });
             });
 
-            console.log('🐍 Stage 8: Review 1 | Bardia Fatehi Academy');
+            console.log('🐍 مرحله ۸: مرور و جمع‌بندی ۱ | آکادمی بردیا فاتحی');
         })();
     </script>
 </body>
