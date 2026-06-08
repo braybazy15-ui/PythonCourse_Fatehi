@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مرحله ۱۵ | حلقه for | آکادمی بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348; --green-dark: #1f6e34; --green-light: #e6f4ea;
+            --gold: #f0a500; --gold-light: #fff8e7; --dark: #1f2b3a;
+            --text: #2c3e4e; --text-light: #5a6e85; --bg: #f0f4fa; --white: #ffffff;
+            --red: #d94535; --blue: #4a90d9; --blue-light: #e8f2fd;
+            --cyan: #0891b2; --cyan-light: #e0f7fa;
+            --radius: 2rem; --radius-sm: 1.5rem; --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh; padding: 1.5rem 1rem;
+            display: flex; justify-content: center; align-items: flex-start;
+            position: relative; overflow-x: hidden;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; opacity: 0.1; animation: floatUp 8s infinite ease-in; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.12; } 90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        .container { max-width: 950px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+        .stage-card {
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .stage-card::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 180px; height: 180px; background: var(--cyan-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob1 6s infinite alternate;
+        }
+        .stage-card::after {
+            content: ''; position: absolute; bottom: -40px; right: -40px;
+            width: 140px; height: 140px; background: var(--gold-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob2 5s infinite alternate;
+        }
+        @keyframes blob1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -15px) scale(1.15); } }
+        @keyframes blob2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20px, 15px) scale(1.1); } }
+        .stage-card>* { position: relative; z-index: 1; }
+        @keyframes cardEntry { 0% { opacity: 0; transform: translateY(30px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .stage-header { text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px dashed #dce5f0; }
+        .stage-badge-top { display: inline-block; background: var(--cyan); color: white; padding: 0.3rem 1.2rem; border-radius: 2rem; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.6rem; }
+        .stage-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+        .stage-header .subtitle { color: var(--text-light); font-size: 0.9rem; }
+        .user-greeting { background: var(--green-light); border-radius: 3rem; padding: 0.6rem 1.6rem; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--green-dark); margin-bottom: 1.8rem; font-size: 1rem; animation: float 3s infinite alternate; }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
+        .lesson-section { background: #fafcfd; border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.8rem; border: 1px solid #eef2f8; border-right: 5px solid var(--cyan); line-height: 2.1; color: var(--text); text-align: justify; animation: fadeIn 0.6s 0.2s both; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        .lesson-section h2 { font-size: 1.3rem; color: #0e7490; margin-bottom: 1rem; font-weight: 800; }
+        .lesson-section h3 { font-size: 1.1rem; color: var(--dark); margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .lesson-section p { margin-bottom: 0.9rem; }
+        .lesson-section ul, .lesson-section ol { padding-right: 1.8rem; margin-bottom: 1rem; }
+        .lesson-section li { margin-bottom: 0.6rem; }
+        .highlight-box { background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs); padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold); }
+        .highlight-box.green { background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green); }
+        .highlight-box.cyan { background: var(--cyan-light); border-color: #a0e8f0; border-right: 4px solid var(--cyan); }
+        .highlight-box.red { background: #fff5f5; border-color: #f0c0c0; border-right: 4px solid var(--red); }
+        .code-inline { background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; display: inline-block; font-size: 0.9rem; color: #1a3a5c; }
+        .code-box {
+            background: #1e1e1e; border-radius: 1rem; padding: 1.2rem; margin: 1rem 0;
+            font-family: 'Consolas', 'Courier New', 'Fira Code', monospace; direction: ltr;
+            font-size: 0.9rem; overflow-x: auto; line-height: 1.9; white-space: pre-wrap;
+            word-break: break-all; border: 1px solid #333; box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+            color: #d4d4d4;
+        }
+        .code-box .kw { color: #569cd6; } .code-box .str { color: #ce9178; }
+        .code-box .num { color: #b5cea8; } .code-box .cm { color: #6a9955; }
+        .code-box .var { color: #9cdcfe; } .code-box .fn { color: #dcdcaa; }
+        .code-box .py { color: #c586c0; }
+        .output-box {
+            background: #f5f5f5; border-radius: 1rem; padding: 1rem 1.2rem; margin: 0.5rem 0 1.2rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr;
+            font-size: 0.9rem; border: 2px dashed #e0e7ef; color: #333;
+            white-space: pre-wrap; word-break: break-all;
+        }
+        .output-box::before {
+            content: '🖥️ خروجی:'; display: block; font-family: 'Vazirmatn', sans-serif;
+            font-weight: 700; color: #0e7490; margin-bottom: 0.4rem; font-size: 0.8rem;
+            direction: rtl; text-align: right;
+        }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .flip-card { perspective: 1000px; height: 230px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; border: 2px solid #e0e7ef; }
+        .flip-card-front { background: linear-gradient(135deg, #ffffff, #f9fbfe); flex-direction: column; gap: 0.5rem; }
+        .flip-card-front .ex-num { background: var(--cyan); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
+        .flip-card-front .ex-text { font-weight: 600; color: var(--dark); font-size: 0.9rem; }
+        .flip-card-front .ex-hint { font-size: 0.7rem; color: var(--text-light); }
+        .flip-card-back { background: linear-gradient(135deg, #e0f7fa, #b8ecf2); transform: rotateY(180deg); flex-direction: column; gap: 0.4rem; border-color: var(--cyan); }
+        .flip-card-back .answer-label { font-weight: 700; color: #0e7490; font-size: 0.8rem; }
+        .flip-card-back .answer-code { background: #1e1e1e; color: #d4d4d4; padding: 0.6rem 0.9rem; border-radius: 0.5rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.75rem; max-width: 100%; overflow-x: auto; white-space: pre-wrap; text-align: right; }
+        .flip-card-back .answer-code .kw { color: #569cd6; } .flip-card-back .answer-code .str { color: #ce9178; } .flip-card-back .answer-code .num { color: #b5cea8; } .flip-card-back .answer-code .fn { color: #dcdcaa; } .flip-card-back .answer-code .cm { color: #6a9955; }
+        .quiz-section { background: white; border-radius: var(--radius-sm); padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #e0e7ef; }
+        .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
+        .quiz-item { background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs); padding: 1.2rem; margin-bottom: 1rem; }
+        .quiz-question { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option { display: flex; align-items: center; gap: 10px; cursor: pointer; background: white; padding: 0.6rem 1rem; border-radius: 1rem; transition: var(--transition); border: 1px solid #eef2f8; }
+        .quiz-option:hover { background: #f0f6fa; border-color: #cddfe7; }
+        .quiz-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--cyan); cursor: pointer; }
+        .quiz-option.correct-answer { background: #d4edda; border-color: #2b9348; }
+        .quiz-option.wrong-answer { background: #fce4e4; border-color: #d94535; }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem; min-height: 1.5rem; }
+        .feedback-correct { color: #1f6e34; } .feedback-wrong { color: #c0392b; }
+        .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .btn { padding: 0.8rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.95rem; font-weight: 700; border-radius: 3rem; cursor: pointer; transition: var(--transition); border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .btn-primary { background: linear-gradient(95deg, #2b9348, #238b3f); color: white; box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4); }
+        .btn-outline { background: white; color: var(--green-dark); border: 2px solid var(--green); }
+        .btn-outline:hover { background: var(--green-light); }
+        .toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) scale(0.9); background: linear-gradient(115deg, #1f3b2c, #113a25); color: #f3fff9; padding: 0.9rem 2rem; border-radius: 60px; font-weight: 600; font-size: 1rem; box-shadow: 0 20px 30px -12px black; z-index: 1000; opacity: 0; transition: 0.25s; pointer-events: none; white-space: nowrap; }
+        .toast-notify.show { opacity: 1; transform: translateX(-50%) scale(1); }
+        .footer-box { margin-top: 1.5rem; text-align: center; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(6px); border-radius: 2rem; padding: 0.9rem 1.2rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.8); }
+        .footer-text { font-size: 0.9rem; color: #2c3e50; font-weight: 500; }
+        .footer-text span { color: #1f6e3f; font-weight: 800; background: #eafaf1; padding: 0.2rem 0.8rem; border-radius: 30px; display: inline-block; }
+        .support-link { color: #2b9348; font-weight: 600; text-decoration: none; direction: ltr; display: inline-block; margin-top: 0.3rem; font-size: 0.85rem; }
+        @media (max-width: 600px) {
+            .stage-card { padding: 1.5rem 1rem; } .stage-header h1 { font-size: 1.4rem; }
+            .lesson-section { padding: 1rem; font-size: 0.9rem; } .btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
+            .exercise-grid { grid-template-columns: 1fr; } .code-box { font-size: 0.75rem; padding: 0.8rem; } .output-box { font-size: 0.75rem; padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="stage-card">
+            <div class="stage-header">
+                <span class="stage-badge-top">📚 مرحله ۱۵ از ۳۱</span>
+                <h1>🔁 حلقه for در پایتون</h1>
+                <p class="subtitle">یاد می‌گیری چطور کدها را بارها و بارها تکرار کنی!</p>
+            </div>
+
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان! امروز با حلقه‌ها کار می‌کنیم 🔁
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h2>🔁 حلقه یعنی چه؟ چرا نیاز داریم؟</h2>
+                <p>
+                    تصور کن می‌خواهی ۱۰۰ بار «سلام» چاپ کنی. آیا باید ۱۰۰ خط <span class="code-inline">print("سلام")</span> بنویسی؟
+                    قطعاً نه! اینجاست که <strong>حلقه‌ها (Loops)</strong> به کمک می‌آیند.
+                    حلقه یعنی <strong>تکرار یک بلوک کد</strong> به تعداد مشخص یا تا وقتی که شرطی برقرار باشد.
+                </p>
+                <p>
+                    <strong>حلقه for</strong> یکی از پرکاربردترین حلقه‌ها در پایتون است.
+                    از for وقتی استفاده می‌کنی که <strong>دقیقاً بدانی چند بار</strong> می‌خواهی کد تکرار شود،
+                    یا بخواهی روی <strong>تک‌تک اعضای یک مجموعه</strong> (مثل لیست، رشته، یا بازه اعداد) کاری انجام دهی.
+                </p>
+
+                <div class="highlight-box cyan">
+                    <strong>🧠 مثال واقعی:</strong> تصور کن ۱۰ تا کتاب داری و می‌خواهی تک‌تکشان را
+                    از قفسه برداری، گردگیری کنی و سر جایش بگذاری. حلقه for دقیقاً همین کار را می‌کند:
+                    از کتاب اول شروع می‌کند، می‌رود تا کتاب دهم، و روی هر کدام همان کار را انجام می‌دهد.
+                </div>
+
+                <h2>✍️ ساختار حلقه for</h2>
+                <div class="code-box">
+<span class="kw">for</span> <span class="var">متغیر</span> <span class="kw">in</span> <span class="var">مجموعه</span>:
+    <span class="cm"># کدی که می‌خواهی تکرار شود</span>
+    <span class="kw">print</span>(<span class="var">متغیر</span>)
+                </div>
+
+                <h2>🔢 تابع range() - قلب حلقه for</h2>
+                <p>
+                    <span class="code-inline">range()</span> یک تابع جادویی است که <strong>دنباله‌ای از اعداد</strong> می‌سازد.
+                    معمولاً از range برای تکرار به تعداد مشخص استفاده می‌کنیم.
+                </p>
+                <div class="code-box">
+<span class="cm"># range(n): از 0 تا n-1</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):
+    <span class="kw">print</span>(i)
+                </div>
+                <div class="output-box">0
+1
+2
+3
+4</div>
+
+                <div class="code-box">
+<span class="cm"># range(start, stop): از start تا stop-1</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="num">7</span>):
+    <span class="kw">print</span>(i)
+                </div>
+                <div class="output-box">2
+3
+4
+5
+6</div>
+
+                <div class="code-box">
+<span class="cm"># range(start, stop, step): گام به گام</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">10</span>, <span class="num">2</span>):
+    <span class="kw">print</span>(i)
+                </div>
+                <div class="output-box">1
+3
+5
+7
+9</div>
+
+                <div class="highlight-box red">
+                    <strong>⚠️ نکته مهم:</strong> range(start, stop) تا <strong>یک عدد قبل از stop</strong> می‌رود!
+                    range(1, 5) یعنی 1, 2, 3, 4 (عدد 5 شامل نمی‌شود).
+                </div>
+
+                <h2>📝 مثال‌های عملی با for</h2>
+
+                <h3>مثال ۱: چاپ ۵ بار سلام</h3>
+                <div class="code-box">
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):
+    <span class="kw">print</span>(<span class="str">"Hello!"</span>)
+                </div>
+                <div class="output-box">Hello!
+Hello!
+Hello!
+Hello!
+Hello!</div>
+
+                <h3>مثال ۲: چاپ اعداد ۱ تا ۱۰</h3>
+                <div class="code-box">
+<span class="kw">for</span> num <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):
+    <span class="kw">print</span>(num)
+                </div>
+
+                <h3>مثال ۳: جدول ضرب ۷</h3>
+                <div class="code-box">
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):
+    <span class="kw">print</span>(<span class="str">f"7 × {i} = {7 * i}"</span>)
+                </div>
+                <div class="output-box">7 × 1 = 7
+7 × 2 = 14
+...
+7 × 10 = 70</div>
+
+                <h2>📝 حلقه for روی رشته</h2>
+                <p>می‌توانی روی تک‌تک حروف یک رشته حلقه بزنی:</p>
+                <div class="code-box">
+<span class="var">word</span> = <span class="str">"Python"</span>
+<span class="kw">for</span> ch <span class="kw">in</span> <span class="var">word</span>:
+    <span class="kw">print</span>(ch)
+                </div>
+                <div class="output-box">P
+y
+t
+h
+o
+n</div>
+
+                <h2>🧮 جمع اعداد با for</h2>
+                <div class="code-box">
+<span class="var">total</span> = <span class="num">0</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    total = total + i
+<span class="kw">print</span>(<span class="str">"مجموع:"</span>, total)
+                </div>
+                <div class="output-box">مجموع: 15</div>
+
+                <h2>🔀 حلقه for با شرط if</h2>
+                <p>می‌توانی داخل for از if استفاده کنی:</p>
+                <div class="code-box">
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):
+    <span class="kw">if</span> i % <span class="num">2</span> == <span class="num">0</span>:
+        <span class="kw">print</span>(<span class="str">f"{i} زوج است"</span>)
+    <span class="kw">else</span>:
+        <span class="kw">print</span>(<span class="str">f"{i} فرد است"</span>)
+                </div>
+
+                <h2>🧪 تمرین‌های عملی for</h2>
+                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! <strong>اول خودت حل کن!</strong></p>
+
+                <div class="exercise-grid">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۱</div><div class="ex-text">اعداد ۱ تا ۲۰ را چاپ کن</div><div class="ex-hint">👆 کلیک کن</div></div>
+                                                        <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">21</span>):
+    <span class="kw">print</span>(i)</div></div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۲</div><div class="ex-text">اعداد زوج بین ۱ تا ۲۰</div><div class="ex-hint">👆 کلیک کن</div></div>
+                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>, <span class="num">21</span>, <span class="num">2</span>):
+    <span class="kw">print</span>(i)</div></div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۳</div><div class="ex-text">نام خود را ۱۰ بار چاپ کن</div><div class="ex-hint">👆 کلیک کن</div></div>
+                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>):
+    <span class="kw">print</span>(<span class="str">"Amir"</span>)</div></div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۴</div><div class="ex-text">مجموع اعداد ۱ تا ۱۰۰</div><div class="ex-hint">👆 کلیک کن</div></div>
+                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">t = <span class="num">0</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">101</span>):
+    t = t + i
+<span class="kw">print</span>(t)  <span class="cm"># 5050</span></div></div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۵</div><div class="ex-text">فاکتوریل عدد ۵</div><div class="ex-hint">👆 کلیک کن</div></div>
+                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">f = <span class="num">1</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>):
+    f = f * i
+<span class="kw">print</span>(f)  <span class="cm"># 120</span></div></div>
+                        </div>
+                    </div>
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"><div class="ex-num">۶</div><div class="ex-text">شمارش معکوس ۱۰ تا ۱</div><div class="ex-hint">👆 کلیک کن</div></div>
+                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>, <span class="num">0</span>, <span class="num">-1</span>):
+    <span class="kw">print</span>(i)</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-section" id="quizSection">
+                <h3>📝 آزمون مرحله ۱۵ - حلقه for</h3>
+                <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">
+                    ببینیم for را چقدر خوب یاد گرفتی؟ (اختیاری)
+                </p>
+                <div class="quiz-item" data-question="1" data-correct="2">
+                    <div class="quiz-question">۱. خروجی <span class="code-inline">for i in range(3): print(i)</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> 1 2 3</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> 0 1 2</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> 0 1 2 3</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> 3 2 1</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+                <div class="quiz-item" data-question="2" data-correct="3">
+                    <div class="quiz-question">۲. <span class="code-inline">range(2, 6)</span> چه اعدادی تولید می‌کند؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q2" value="1"> 2, 3, 4, 5, 6</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="2"> 1, 2, 3, 4, 5</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="3"> 2, 3, 4, 5</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="4"> 2, 4, 6</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+                <div class="quiz-item" data-question="3" data-correct="4">
+                    <div class="quiz-question">۳. برای شمارش معکوس از ۵ تا ۱ از کدام استفاده می‌کنی؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q3" value="1"> range(5, 1)</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="2"> range(1, 5, -1)</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> range(5, 1, 1)</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> range(5, 0, -1)</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+                <div class="quiz-item" data-question="4" data-correct="1">
+                    <div class="quiz-question">۴. <span class="code-inline">for ch in "AB": print(ch)</span> چه خروجی دارد؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q4" value="1"> A سپس B</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="2"> AB</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="3"> A B</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="4"> خطا</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback4"></div>
+                </div>
+                <div class="quiz-item" data-question="5" data-correct="2">
+                    <div class="quiz-question">۵. کدام یک ۳ بار "Hi" چاپ می‌کند؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q5" value="1"> for i in range(3): print("Hi")</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="2"> for i in range(3): print("Hi")</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="3"> for i in range(2): print("Hi")</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="4"> for i in range(4): print("Hi")</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback5"></div>
+                </div>
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
+                </div>
+                <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
+            </div>
+
+            <div class="btn-row">
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-14.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-16.html" class="btn btn-primary">🚀 مرحله بعد: حلقه while</a>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
+            const quizResultMsg = document.getElementById('quizResultMsg');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            function createParticles() {
+                const colors = ['#0891b2', '#f0a500', '#4a90d9', '#2b9348', '#e07b5a'];
+                for (let i = 0; i < 18; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    const size = Math.random() * 14 + 5;
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.bottom = '-20px';
+                    particle.style.animationDelay = Math.random() * 8 + 's';
+                    particle.style.animationDuration = (Math.random() * 7 + 5) + 's';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            createParticles();
+
+            function showToast(message, isSuccess = true) {
+                toastMsg.textContent = message;
+                toastMsg.style.background = isSuccess ? 'linear-gradient(115deg, #1f3b2c, #113a25)' : 'linear-gradient(115deg, #5c1a1a, #8b2020)';
+                toastMsg.classList.remove('show');
+                void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(() => { toastMsg.classList.remove('show'); }, 3000);
+            }
+
+            const userData = JSON.parse(localStorage.getItem('python_academy_user') || 'null');
+            if (userData && userData.fullName) {
+                userNameDisplay.textContent = userData.fullName;
+            }
+
+            checkQuizBtn.addEventListener('click', () => {
+                const quizItems = document.querySelectorAll('.quiz-item');
+                let allCorrect = true; let allAnswered = true; let correctCount = 0;
+                const totalQuestions = quizItems.length;
+                document.querySelectorAll('.quiz-feedback').forEach(fb => { fb.textContent = ''; fb.className = 'quiz-feedback'; });
+                document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('correct-answer', 'wrong-answer'));
+                quizItems.forEach(item => {
+                    const questionNum = item.getAttribute('data-question');
+                    const correctAnswer = item.getAttribute('data-correct');
+                    const selectedRadio = item.querySelector(`input[name="q${questionNum}"]:checked`);
+                    const feedbackEl = document.getElementById('feedback' + questionNum);
+                    if (!selectedRadio) { allAnswered = false; allCorrect = false; feedbackEl.textContent = '⚠️ لطفاً یک گزینه را انتخاب کن!'; feedbackEl.className = 'quiz-feedback feedback-wrong'; return; }
+                    const selectedValue = selectedRadio.value;
+                    const selectedOption = selectedRadio.closest('.quiz-option');
+                    if (selectedValue === correctAnswer) { correctCount++; selectedOption.classList.add('correct-answer'); feedbackEl.textContent = '✅ صحیح!'; feedbackEl.className = 'quiz-feedback feedback-correct'; }
+                    else { allCorrect = false; selectedOption.classList.add('wrong-answer'); const correctOption = item.querySelector(`input[value="${correctAnswer}"]`).closest('.quiz-option'); correctOption.classList.add('correct-answer'); feedbackEl.textContent = '❌ نادرست! گزینه صحیح سبز است.'; feedbackEl.className = 'quiz-feedback feedback-wrong'; }
+                });
+                if (!allAnswered) { quizResultMsg.innerHTML = '<span style="color:#d94535;">⚠️ لطفاً به همه سوالات پاسخ بده!</span>'; return; }
+                if (allCorrect) { quizResultMsg.innerHTML = '<span style="color:#1f6e34;">🎉 تبریک! حلقه for را کامل یاد گرفتی!</span>'; showToast('🎉 عالی! بریم سراغ while!', true); }
+                else { const wrongCount = totalQuestions - correctCount; quizResultMsg.innerHTML = `<span style="color:#d94535;">😔 ${wrongCount} سوال اشتباه بود. دوباره تلاش کن!</span>`; }
+            });
+            document.querySelectorAll('.quiz-option').forEach(option => { option.addEventListener('click', function() { const radio = this.querySelector('input[type="radio"]'); if (radio) radio.checked = true; }); });
+            console.log('🐍 مرحله ۱۵: حلقه for | آکادمی بردیا فاتحی');
+        })();
+    </script>
+</body>
+  </html>
