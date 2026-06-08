@@ -69,7 +69,7 @@
         .highlight-box.pink { background: var(--pink-light); border-color: #f0c0d8; border-right: 4px solid var(--pink); }
         .code-inline { background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; display: inline-block; font-size: 0.9rem; color: #1a3a5c; }
         .code-box {
-            background: #1e1e1e; border-radius: 1rem; padding: 1.2rem; margin: 1rem 0;
+            background: #1e1e1e; border-radius: 1rem; padding: 1rem 1.2rem; margin: 1rem 0;
             font-family: 'Consolas', 'Courier New', 'Fira Code', monospace; direction: ltr;
             font-size: 0.9rem; overflow-x: auto; line-height: 1.9; white-space: pre-wrap;
             word-break: break-all; border: 1px solid #333; box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
@@ -79,19 +79,29 @@
         .code-box .num { color: #b5cea8; } .code-box .cm { color: #6a9955; }
         .code-box .var { color: #9cdcfe; } .code-box .fn { color: #dcdcaa; }
         .code-box .py { color: #c586c0; }
-        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
-        .flip-card { perspective: 1000px; height: 230px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; padding: 1rem; text-align: center; border: 2px solid #e0e7ef; }
-        .flip-card-front { background: linear-gradient(135deg, #ffffff, #f9fbfe); flex-direction: column; gap: 0.5rem; }
-        .flip-card-front .ex-num { background: var(--pink); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
-        .flip-card-front .ex-text { font-weight: 600; color: var(--dark); font-size: 0.9rem; }
-        .flip-card-front .ex-hint { font-size: 0.7rem; color: var(--text-light); }
-        .flip-card-back { background: linear-gradient(135deg, #fdf2f7, #f0c0d8); transform: rotateY(180deg); flex-direction: column; gap: 0.4rem; border-color: var(--pink); }
-        .flip-card-back .answer-label { font-weight: 700; color: #9d174d; font-size: 0.8rem; }
-        .flip-card-back .answer-code { background: #1e1e1e; color: #d4d4d4; padding: 0.6rem 0.9rem; border-radius: 0.5rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.75rem; max-width: 100%; overflow-x: auto; white-space: pre-wrap; text-align: right; }
-        .flip-card-back .answer-code .kw { color: #569cd6; } .flip-card-back .answer-code .str { color: #ce9178; } .flip-card-back .answer-code .num { color: #b5cea8; } .flip-card-back .answer-code .fn { color: #dcdcaa; } .flip-card-back .answer-code .cm { color: #6a9955; }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .ex-card {
+            background: white; border: 2px solid #e0e7ef; border-radius: var(--radius-xs);
+            padding: 1.2rem; cursor: pointer; transition: var(--transition);
+        }
+        .ex-card:hover { border-color: var(--pink); background: var(--pink-light); }
+        .ex-card .ex-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+        .ex-card .ex-num { background: var(--pink); color: white; width: 36px; height: 36px; min-width: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }
+        .ex-card .ex-title { font-weight: 700; color: var(--dark); font-size: 0.95rem; }
+        .ex-card .ex-answer { display: none; margin-top: 0.8rem; }
+        .ex-card .ex-answer.show { display: block; }
+        .ex-card .ex-answer .answer-label { font-weight: 700; color: #9d174d; font-size: 0.8rem; margin-bottom: 0.4rem; }
+        .ex-card .ex-answer .answer-code {
+            background: #1e1e1e; color: #d4d4d4; padding: 0.6rem 0.9rem; border-radius: 0.5rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.8rem;
+            max-width: 100%; overflow-x: auto; white-space: pre-wrap; text-align: right;
+        }
+        .ex-card .ex-answer .answer-code .kw { color: #569cd6; }
+        .ex-card .ex-answer .answer-code .str { color: #ce9178; }
+        .ex-card .ex-answer .answer-code .num { color: #b5cea8; }
+        .ex-card .ex-answer .answer-code .fn { color: #dcdcaa; }
+        .ex-card .ex-answer .answer-code .py { color: #c586c0; }
+        .ex-card .ex-answer .answer-code .cm { color: #6a9955; }
         .quiz-section { background: white; border-radius: var(--radius-sm); padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #e0e7ef; }
         .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
         .quiz-item { background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs); padding: 1.2rem; margin-bottom: 1rem; }
@@ -155,216 +165,13 @@
                 </div>
 
                 <h2>🟢 تمرینات سطح ساده (۱ تا ۷)</h2>
-                <div class="exercise-grid">
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱</div><div class="ex-text">بررسی بخش‌پذیری بر ۵</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"عدد: "</span>))
-<span class="kw">if</span> n % <span class="num">5</span> == <span class="num">0</span>:
-    <span class="kw">print</span>(<span class="str">"بخش‌پذیر بر ۵"</span>)
-<span class="kw">else</span>:
-    <span class="kw">print</span>(<span class="str">"بخش‌پذیر نیست"</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۲</div><div class="ex-text">بزرگترین عدد بین سه عدد</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">a=<span class="fn">int</span>(<span class="fn">input</span>()); b=<span class="fn">int</span>(<span class="fn">input</span>()); c=<span class="fn">int</span>(<span class="fn">input</span>())
-m = a
-<span class="kw">if</span> b > m: m = b
-<span class="kw">if</span> c > m: m = c
-<span class="kw">print</span>(m)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۳</div><div class="ex-text">چاپ اعداد فرد ۱ تا ۲۰</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">21</span>, <span class="num">2</span>):
-    <span class="kw">print</span>(i)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۴</div><div class="ex-text">جدول ضرب عدد دلخواه</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"عدد: "</span>))
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):
-    <span class="kw">print</span>(<span class="str">f"{n}×{i}={n*i}"</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۵</div><div class="ex-text">میانگین ۵ عدد</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">s = <span class="num">0</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):
-    s += <span class="fn">float</span>(<span class="fn">input</span>())
-<span class="kw">print</span>(s/<span class="num">5</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۶</div><div class="ex-text">بررسی سال کبیسه</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">y = <span class="fn">int</span>(<span class="fn">input</span>())
-<span class="kw">if</span> y%<span class="num">400</span>==<span class="num">0</span> <span class="kw">or</span> (y%<span class="num">4</span>==<span class="num">0</span> <span class="kw">and</span> y%<span class="num">100</span>!=<span class="num">0</span>):
-    <span class="kw">print</span>(<span class="str">"کبیسه"</span>)
-<span class="kw">else</span>: <span class="kw">print</span>(<span class="str">"عادی"</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۷</div><div class="ex-text">شمارش معکوس با while</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n = <span class="num">10</span>
-<span class="kw">while</span> n > <span class="num">0</span>:
-    <span class="kw">print</span>(n)
-    n -= <span class="num">1</span>
-<span class="kw">print</span>(<span class="str">"GO!"</span>)</div></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="exercise-grid" id="easyGrid"></div>
 
                 <h2>🟡 تمرینات سطح متوسط (۸ تا ۱۴)</h2>
-                <div class="exercise-grid">
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۸</div><div class="ex-text">محاسبه توان بدون **</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">b=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"پایه: "</span>))
-e=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"توان: "</span>))
-r=<span class="num">1</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(e)
-                                                          <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">b=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"پایه: "</span>))
-e=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"توان: "</span>))
-r=<span class="num">1</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(e):
-    r*=b
-<span class="kw">print</span>(r)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۹</div><div class="ex-text">عدد اول بودن</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); p=<span class="py">True</span>
-<span class="kw">if</span> n<<span class="num">2</span>: p=<span class="py">False</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>,<span class="fn">int</span>(n**<span class="num">0.5</span>)+<span class="num">1</span>):
-    <span class="kw">if</span> n%i==<span class="num">0</span>: p=<span class="py">False</span>;<span class="kw">break</span>
-<span class="kw">print</span>(<span class="str">"اول"</span> <span class="kw">if</span> p <span class="kw">else</span> <span class="str">"اول نیست"</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۰</div><div class="ex-text">مجموع ارقام یک عدد</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); s=<span class="num">0</span>
-<span class="kw">while</span> n><span class="num">0</span>:
-    s+=n%<span class="num">10</span>
-    n//=<span class="num">10</span>
-<span class="kw">print</span>(s)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۱</div><div class="ex-text">معکوس یک عدد</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); r=<span class="num">0</span>
-<span class="kw">while</span> n><span class="num">0</span>:
-    r=r*<span class="num">10</span>+n%<span class="num">10</span>
-    n//=<span class="num">10</span>
-<span class="kw">print</span>(r)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۲</div><div class="ex-text">ب.م.م دو عدد</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">a=<span class="fn">int</span>(<span class="fn">input</span>()); b=<span class="fn">int</span>(<span class="fn">input</span>())
-<span class="kw">while</span> b!=<span class="num">0</span>:
-    a,b=b,a%b
-<span class="kw">print</span>(a)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۳</div><div class="ex-text">الگوی مثلثی با ستاره</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>())
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):
-    <span class="kw">print</span>(<span class="str">"*"</span>*i)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۴</div><div class="ex-text">تشخیص عدد کامل</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); s=<span class="num">0</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n):
-    <span class="kw">if</span> n%i==<span class="num">0</span>: s+=i
-<span class="kw">print</span>(s==n)</div></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="exercise-grid" id="mediumGrid"></div>
 
                 <h2>🔴 تمرینات سطح چالشی (۱۵ تا ۲۰)</h2>
-                <div class="exercise-grid">
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۵</div><div class="ex-text">سری فیبوناچی</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); a,b=<span class="num">0</span>,<span class="num">1</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
-    <span class="kw">print</span>(a,end=<span class="str">" "</span>)
-    a,b=b,a+b</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۶</div><div class="ex-text">لوزی توخالی</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>())
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):
-    s=<span class="str">" "</span>*(n-i)+<span class="str">"*"</span>
-    <span class="kw">if</span> i><span class="num">1</span>: s+=<span class="str">" "</span>*(<span class="num">2</span>*i-<span class="num">3</span>)+<span class="str">"*"</span>
-    <span class="kw">print</span>(s)
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n-<span class="num">1</span>,<span class="num">0</span>,-<span class="num">1</span>):
-    s=<span class="str">" "</span>*(n-i)+<span class="str">"*"</span>
-    <span class="kw">if</span> i><span class="num">1</span>: s+=<span class="str">" "</span>*(<span class="num">2</span>*i-<span class="num">3</span>)+<span class="str">"*"</span>
-    <span class="kw">print</span>(s)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۷</div><div class="ex-text">مثلث خیام-پاسکال</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>())
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):
-    c=<span class="num">1</span>
-    <span class="kw">print</span>(<span class="str">" "</span>*(n-i),end=<span class="str">""</span>)
-    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i+<span class="num">1</span>):
-        <span class="kw">print</span>(c,end=<span class="str">" "</span>)
-        c=c*(i-j)//(j+<span class="num">1</span>)
-    <span class="kw">print</span>()</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۸</div><div class="ex-text">تخمین عدد پی</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); p=<span class="num">0</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):
-    p+=<span class="num">1</span>/(i**<span class="num">2</span>)
-<span class="kw">print</span>((p*<span class="num">6</span>)**<span class="num">0.5</span>)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۱۹</div><div class="ex-text">عدد آرمسترانگ</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">n=<span class="fn">int</span>(<span class="fn">input</span>()); t=n; s=<span class="num">0</span>; d=<span class="fn">len</span>(<span class="fn">str</span>(n))
-<span class="kw">while</span> t><span class="num">0</span>:
-    s+=(t%<span class="num">10</span>)**d; t//=<span class="num">10</span>
-<span class="kw">print</span>(s==n)</div></div>
-                        </div>
-                    </div>
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front"><div class="ex-num">۲۰</div><div class="ex-text">رمزنگاری سزار</div><div class="ex-hint">👆 کلیک کن</div></div>
-                            <div class="flip-card-back"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">t=<span class="fn">input</span>(<span class="str">"متن: "</span>); s=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"شیفت: "</span>)); r=<span class="str">""</span>
-<span class="kw">for</span> ch <span class="kw">in</span> t:
-    <span class="kw">if</span> ch.isalpha():
-        b=<span class="num">65</span> <span class="kw">if</span> ch.isupper() <span class="kw">else</span> <span class="num">97</span>
-        r+=<span class="fn">chr</span>((<span class="fn">ord</span>(ch)-b+s)%<span class="num">26</span>+b)
-    <span class="kw">else</span>: r+=ch
-<span class="kw">print</span>(r)</div></div>
-                        </div>
-                    </div>
-                </div>
+                <div class="exercise-grid" id="hardGrid"></div>
             </div>
 
             <div class="quiz-section" id="quizSection">
@@ -450,18 +257,96 @@ r=<span class="num">1</span>
             const quizResultMsg = document.getElementById('quizResultMsg');
             const toastMsg = document.getElementById('toastMsg');
             const particlesContainer = document.getElementById('particles');
-            function createParticles() { const colors = ['#c02669','#f0a500','#4a90d9','#2b9348','#e07b5a']; for(let i=0;i<18;i++){const p=document.createElement('div');p.classList.add('particle');const s=Math.random()*14+5;p.style.width=s+'px';p.style.height=s+'px';p.style.left=Math.random()*100+'%';p.style.bottom='-20px';p.style.animationDelay=Math.random()*8+'s';p.style.animationDuration=(Math.random()*7+5)+'s';p.style.background=colors[Math.floor(Math.random()*colors.length)];particlesContainer.appendChild(p);} }
+
+            function createParticles() {
+                const colors = ['#c02669','#f0a500','#4a90d9','#2b9348','#e07b5a'];
+                for(let i=0;i<18;i++){
+                    const p=document.createElement('div');p.classList.add('particle');
+                    const s=Math.random()*14+5;p.style.width=s+'px';p.style.height=s+'px';
+                    p.style.left=Math.random()*100+'%';p.style.bottom='-20px';
+                    p.style.animationDelay=Math.random()*8+'s';
+                    p.style.animationDuration=(Math.random()*7+5)+'s';
+                    p.style.background=colors[Math.floor(Math.random()*colors.length)];
+                    particlesContainer.appendChild(p);
+                }
+            }
             createParticles();
-            function showToast(m,s=true){toastMsg.textContent=m;toastMsg.style.background=s?'linear-gradient(115deg,#1f3b2c,#113a25)':'linear-gradient(115deg,#5c1a1a,#8b2020)';toastMsg.classList.remove('show');void toastMsg.offsetWidth;toastMsg.classList.add('show');setTimeout(()=>{toastMsg.classList.remove('show');},3000);}
+
+            function showToast(m,s=true){
+                toastMsg.textContent=m;
+                                toastMsg.style.background=s?'linear-gradient(115deg,#1f3b2c,#113a25)':'linear-gradient(115deg,#5c1a1a,#8b2020)';
+                toastMsg.classList.remove('show');void toastMsg.offsetWidth;
+                toastMsg.classList.add('show');
+                setTimeout(()=>{toastMsg.classList.remove('show');},3000);
+            }
+
             const userData=JSON.parse(localStorage.getItem('python_academy_user')||'null');
             if(userData&&userData.fullName){userNameDisplay.textContent=userData.fullName;}
+
+            const exercises = {
+                easy: [
+                    {num:1, title:'بررسی بخش‌پذیری بر ۵', code:'n = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"عدد: "</span>))\n<span class="kw">if</span> n % <span class="num">5</span> == <span class="num">0</span>:\n    <span class="kw">print</span>(<span class="str">"بخش‌پذیر بر ۵"</span>)\n<span class="kw">else</span>:\n    <span class="kw">print</span>(<span class="str">"بخش‌پذیر نیست"</span>)'},
+                    {num:2, title:'بزرگترین عدد بین سه عدد', code:'a=<span class="fn">int</span>(<span class="fn">input</span>())\nb=<span class="fn">int</span>(<span class="fn">input</span>())\nc=<span class="fn">int</span>(<span class="fn">input</span>())\nm = a\n<span class="kw">if</span> b > m: m = b\n<span class="kw">if</span> c > m: m = c\n<span class="kw">print</span>(m)'},
+                    {num:3, title:'چاپ اعداد فرد ۱ تا ۲۰', code:'<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">21</span>, <span class="num">2</span>):\n    <span class="kw">print</span>(i)'},
+                    {num:4, title:'جدول ضرب عدد دلخواه', code:'n = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"عدد: "</span>))\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):\n    <span class="kw">print</span>(<span class="str">f"{n}×{i}={n*i}"</span>)'},
+                    {num:5, title:'میانگین ۵ عدد', code:'s = <span class="num">0</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):\n    s += <span class="fn">float</span>(<span class="fn">input</span>())\n<span class="kw">print</span>(s/<span class="num">5</span>)'},
+                    {num:6, title:'بررسی سال کبیسه', code:'y = <span class="fn">int</span>(<span class="fn">input</span>())\n<span class="kw">if</span> y%<span class="num">400</span>==<span class="num">0</span> <span class="kw">or</span> (y%<span class="num">4</span>==<span class="num">0</span> <span class="kw">and</span> y%<span class="num">100</span>!=<span class="num">0</span>):\n    <span class="kw">print</span>(<span class="str">"کبیسه"</span>)\n<span class="kw">else</span>: <span class="kw">print</span>(<span class="str">"عادی"</span>)'},
+                    {num:7, title:'شمارش معکوس با while', code:'n = <span class="num">10</span>\n<span class="kw">while</span> n > <span class="num">0</span>:\n    <span class="kw">print</span>(n)\n    n -= <span class="num">1</span>\n<span class="kw">print</span>(<span class="str">"GO!"</span>)'}
+                ],
+                medium: [
+                    {num:8, title:'محاسبه توان بدون **', code:'b=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"پایه: "</span>))\ne=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"توان: "</span>))\nr=<span class="num">1</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(e):\n    r*=b\n<span class="kw">print</span>(r)'},
+                    {num:9, title:'عدد اول بودن', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\np=<span class="py">True</span>\n<span class="kw">if</span> n<<span class="num">2</span>: p=<span class="py">False</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">2</span>,<span class="fn">int</span>(n**<span class="num">0.5</span>)+<span class="num">1</span>):\n    <span class="kw">if</span> n%i==<span class="num">0</span>: p=<span class="py">False</span>;<span class="kw">break</span>\n<span class="kw">print</span>(<span class="str">"اول"</span> <span class="kw">if</span> p <span class="kw">else</span> <span class="str">"اول نیست"</span>)'},
+                    {num:10, title:'مجموع ارقام یک عدد', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\ns=<span class="num">0</span>\n<span class="kw">while</span> n><span class="num">0</span>:\n    s+=n%<span class="num">10</span>\n    n//=<span class="num">10</span>\n<span class="kw">print</span>(s)'},
+                    {num:11, title:'معکوس یک عدد', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\nr=<span class="num">0</span>\n<span class="kw">while</span> n><span class="num">0</span>:\n    r=r*<span class="num">10</span>+n%<span class="num">10</span>\n    n//=<span class="num">10</span>\n<span class="kw">print</span>(r)'},
+                    {num:12, title:'ب.م.م دو عدد', code:'a=<span class="fn">int</span>(<span class="fn">input</span>())\nb=<span class="fn">int</span>(<span class="fn">input</span>())\n<span class="kw">while</span> b!=<span class="num">0</span>:\n    a,b=b,a%b\n<span class="kw">print</span>(a)'},
+                    {num:13, title:'الگوی مثلثی با ستاره', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):\n    <span class="kw">print</span>(<span class="str">"*"</span>*i)'},
+                    {num:14, title:'تشخیص عدد کامل', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\ns=<span class="num">0</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n):\n    <span class="kw">if</span> n%i==<span class="num">0</span>: s+=i\n<span class="kw">print</span>(s==n)'}
+                ],
+                hard: [
+                    {num:15, title:'سری فیبوناچی', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\na,b=<span class="num">0</span>,<span class="num">1</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):\n    <span class="kw">print</span>(a,end=<span class="str">" "</span>)\n    a,b=b,a+b'},
+                    {num:16, title:'لوزی توخالی', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):\n    s=<span class="str">" "</span>*(n-i)+<span class="str">"*"</span>\n    <span class="kw">if</span> i><span class="num">1</span>: s+=<span class="str">" "</span>*(<span class="num">2</span>*i-<span class="num">3</span>)+<span class="str">"*"</span>\n    <span class="kw">print</span>(s)\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n-<span class="num">1</span>,<span class="num">0</span>,-<span class="num">1</span>):\n    s=<span class="str">" "</span>*(n-i)+<span class="str">"*"</span>\n    <span class="kw">if</span> i><span class="num">1</span>: s+=<span class="str">" "</span>*(<span class="num">2</span>*i-<span class="num">3</span>)+<span class="str">"*"</span>\n    <span class="kw">print</span>(s)'},
+                    {num:17, title:'مثلث خیام-پاسکال', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):\n    c=<span class="num">1</span>\n    <span class="kw">print</span>(<span class="str">" "</span>*(n-i),end=<span class="str">""</span>)\n    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(i+<span class="num">1</span>):\n        <span class="kw">print</span>(c,end=<span class="str">" "</span>)\n        c=c*(i-j)//(j+<span class="num">1</span>)\n    <span class="kw">print</span>()'},
+                    {num:18, title:'تخمین عدد پی', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\np=<span class="num">0</span>\n<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>,n+<span class="num">1</span>):\n    p+=<span class="num">1</span>/(i**<span class="num">2</span>)\n<span class="kw">print</span>((p*<span class="num">6</span>)**<span class="num">0.5</span>)'},
+                    {num:19, title:'عدد آرمسترانگ', code:'n=<span class="fn">int</span>(<span class="fn">input</span>())\nt=n\ns=<span class="num">0</span>\nd=<span class="fn">len</span>(<span class="fn">str</span>(n))\n<span class="kw">while</span> t><span class="num">0</span>:\n    s+=(t%<span class="num">10</span>)**d\n    t//=<span class="num">10</span>\n<span class="kw">print</span>(s==n)'},
+                    {num:20, title:'رمزنگاری سزار', code:'t=<span class="fn">input</span>(<span class="str">"متن: "</span>)\ns=<span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"شیفت: "</span>))\nr=<span class="str">""</span>\n<span class="kw">for</span> ch <span class="kw">in</span> t:\n    <span class="kw">if</span> ch.isalpha():\n        b=<span class="num">65</span> <span class="kw">if</span> ch.isupper() <span class="kw">else</span> <span class="num">97</span>\n        r+=<span class="fn">chr</span>((<span class="fn">ord</span>(ch)-b+s)%<span class="num">26</span>+b)\n    <span class="kw">else</span>: r+=ch\n<span class="kw">print</span>(r)'}
+                ]
+            };
+
+            function buildCards(containerId, data) {
+                const container = document.getElementById(containerId);
+                data.forEach(ex => {
+                    const card = document.createElement('div');
+                    card.className = 'ex-card';
+                    card.innerHTML = `
+                        <div class="ex-header">
+                            <div class="ex-num">${ex.num}</div>
+                            <div class="ex-title">${ex.title}</div>
+                        </div>
+                        <div class="ex-answer">
+                            <div class="answer-label">✅ پاسخ:</div>
+                            <div class="answer-code">${ex.code}</div>
+                        </div>
+                    `;
+                    card.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const answer = this.querySelector('.ex-answer');
+                        answer.classList.toggle('show');
+                    });
+                    container.appendChild(card);
+                });
+            }
+
+            buildCards('easyGrid', exercises.easy);
+            buildCards('mediumGrid', exercises.medium);
+            buildCards('hardGrid', exercises.hard);
+
             checkQuizBtn.addEventListener('click',()=>{
                 const items=document.querySelectorAll('.quiz-item');let ac=true,aa=true,cc=0;const t=items.length;
                 document.querySelectorAll('.quiz-feedback').forEach(f=>{f.textContent='';f.className='quiz-feedback';});
                 document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('correct-answer','wrong-answer'));
                 items.forEach(item=>{const q=item.getAttribute('data-question');const ca=item.getAttribute('data-correct');const sr=item.querySelector(`input[name="q${q}"]:checked`);const fe=document.getElementById('feedback'+q);if(!sr){aa=false;ac=false;fe.textContent='⚠️ یک گزینه انتخاب کن!';fe.className='quiz-feedback feedback-wrong';return;}const sv=sr.value;const so=sr.closest('.quiz-option');if(sv===ca){cc++;so.classList.add('correct-answer');fe.textContent='✅ صحیح!';fe.className='quiz-feedback feedback-correct';}else{ac=false;so.classList.add('wrong-answer');const co=item.querySelector(`input[value="${ca}"]`).closest('.quiz-option');co.classList.add('correct-answer');fe.textContent='❌ نادرست!';fe.className='quiz-feedback feedback-wrong';}});
                 if(!aa){quizResultMsg.innerHTML='<span style="color:#d94535;">⚠️ به همه سوالات پاسخ بده!</span>';return;}
-                                if(ac){quizResultMsg.innerHTML='<span style="color:#1f6e34;">🎉 تبریک! آماده‌ای برای لیست‌ها!</span>';showToast('🎉 عالی!',true);}
+                if(ac){quizResultMsg.innerHTML='<span style="color:#1f6e34;">🎉 تبریک! آماده‌ای برای لیست‌ها!</span>';showToast('🎉 عالی!',true);}
                 else{const wc=t-cc;quizResultMsg.innerHTML=`<span style="color:#d94535;">😔 ${wc} سوال اشتباه بود. دوباره تلاش کن!</span>`;}
             });
             document.querySelectorAll('.quiz-option').forEach(o=>{o.addEventListener('click',function(){const r=this.querySelector('input[type="radio"]');if(r)r.checked=true;});});
