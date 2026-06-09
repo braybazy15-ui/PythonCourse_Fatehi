@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>مرحله ۱۹ | مجموعه، دیکشنری و تاپل | آکادمی بردیا فاتحی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --green: #2b9348; --green-dark: #1f6e34; --green-light: #e6f4ea;
+            --gold: #f0a500; --gold-light: #fff8e7; --dark: #1f2b3a;
+            --text: #2c3e4e; --text-light: #5a6e85; --bg: #f0f4fa; --white: #ffffff;
+            --red: #d94535; --blue: #4a90d9; --blue-light: #e8f2fd;
+            --emerald: #059669; --emerald-light: #ecfdf5;
+            --radius: 2rem; --radius-sm: 1.5rem; --radius-xs: 1rem;
+            --shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(160deg, #e8f0fe 0%, #f0f4fa 30%, #e2e8f0 70%, #dce5f5 100%);
+            min-height: 100vh; padding: 1.5rem 1rem;
+            display: flex; justify-content: center; align-items: flex-start;
+            position: relative; overflow-x: hidden;
+        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .particle { position: absolute; border-radius: 50%; opacity: 0.1; animation: floatUp 8s infinite ease-in; }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.12; } 90% { opacity: 0.06; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        .container { max-width: 950px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+        .stage-card {
+            background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 2rem 2rem 2.5rem; border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: cardEntry 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .stage-card::before {
+            content: ''; position: absolute; top: -60px; left: -60px;
+            width: 180px; height: 180px; background: var(--emerald-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob1 6s infinite alternate;
+        }
+        .stage-card::after {
+            content: ''; position: absolute; bottom: -40px; right: -40px;
+            width: 140px; height: 140px; background: var(--gold-light);
+            border-radius: 50%; opacity: 0.5; z-index: 0; animation: blob2 5s infinite alternate;
+        }
+        @keyframes blob1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(20px, -15px) scale(1.15); } }
+        @keyframes blob2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20px, 15px) scale(1.1); } }
+        .stage-card>* { position: relative; z-index: 1; }
+        @keyframes cardEntry { 0% { opacity: 0; transform: translateY(30px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .stage-header { text-align: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px dashed #dce5f0; }
+        .stage-badge-top { display: inline-block; background: var(--emerald); color: white; padding: 0.3rem 1.2rem; border-radius: 2rem; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.6rem; }
+        .stage-header h1 { font-size: 1.7rem; font-weight: 900; color: var(--dark); margin-bottom: 0.3rem; }
+        .stage-header .subtitle { color: var(--text-light); font-size: 0.9rem; }
+        .user-greeting { background: var(--green-light); border-radius: 3rem; padding: 0.6rem 1.6rem; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; color: var(--green-dark); margin-bottom: 1.8rem; font-size: 1rem; animation: float 3s infinite alternate; }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-6px); } }
+        .lesson-section { background: #fafcfd; border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1.8rem; border: 1px solid #eef2f8; border-right: 5px solid var(--emerald); line-height: 2.1; color: var(--text); text-align: justify; animation: fadeIn 0.6s 0.2s both; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+        .lesson-section h2 { font-size: 1.3rem; color: #047857; margin-bottom: 1rem; font-weight: 800; }
+        .lesson-section h3 { font-size: 1.1rem; color: var(--dark); margin: 1.4rem 0 0.7rem; font-weight: 700; }
+        .lesson-section p { margin-bottom: 0.9rem; }
+        .lesson-section ul, .lesson-section ol { padding-right: 1.8rem; margin-bottom: 1rem; }
+        .lesson-section li { margin-bottom: 0.6rem; }
+        .highlight-box { background: #fffdf5; border: 1px solid #f0e5a0; border-radius: var(--radius-xs); padding: 1.2rem 1.4rem; margin: 1.2rem 0; border-right: 4px solid var(--gold); }
+        .highlight-box.green { background: #f0faf3; border-color: #b8dcc5; border-right: 4px solid var(--green); }
+        .highlight-box.emerald { background: var(--emerald-light); border-color: #a0e8c0; border-right: 4px solid var(--emerald); }
+        .code-inline { background: #eef3f8; padding: 0.15rem 0.5rem; border-radius: 0.4rem; font-family: 'Consolas', 'Courier New', monospace; direction: ltr; display: inline-block; font-size: 0.9rem; color: #1a3a5c; }
+        .code-box {
+            background: #1e1e1e; border-radius: 1rem; padding: 1rem 1.2rem; margin: 1rem 0;
+            font-family: 'Consolas', 'Courier New', 'Fira Code', monospace; direction: ltr;
+            font-size: 0.9rem; overflow-x: auto; line-height: 1.9; white-space: pre-wrap;
+            word-break: break-all; border: 1px solid #333; box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+            color: #d4d4d4;
+        }
+        .code-box .kw { color: #569cd6; } .code-box .str { color: #ce9178; }
+        .code-box .num { color: #b5cea8; } .code-box .cm { color: #6a9955; }
+        .code-box .var { color: #9cdcfe; } .code-box .fn { color: #dcdcaa; }
+        .code-box .py { color: #c586c0; }
+        .output-box {
+            background: #f5f5f5; border-radius: 1rem; padding: 1rem 1.2rem; margin: 0.5rem 0 1.2rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr;
+            font-size: 0.9rem; border: 2px dashed #e0e7ef; color: #333;
+            white-space: pre-wrap; word-break: break-all;
+        }
+        .output-box::before {
+            content: '🖥️ خروجی:'; display: block; font-family: 'Vazirmatn', sans-serif;
+            font-weight: 700; color: #047857; margin-bottom: 0.4rem; font-size: 0.8rem;
+            direction: rtl; text-align: right;
+        }
+        .type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .type-card { background: white; border: 2px solid #e0e7ef; border-radius: var(--radius-xs); padding: 1.2rem; transition: var(--transition); border-top: 5px solid var(--emerald); }
+        .type-card:hover { border-color: var(--emerald); background: var(--emerald-light); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+        .type-card h4 { font-size: 1.1rem; color: #047857; margin-bottom: 0.3rem; font-weight: 700; }
+        .type-card .type-symbol { direction: ltr; font-family: 'Consolas', monospace; color: #047857; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .type-card p { font-size: 0.85rem; color: var(--text); line-height: 1.8; }
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.2rem 0; }
+        .ex-card {
+            background: white; border: 2px solid #e0e7ef; border-radius: var(--radius-xs);
+            padding: 1.2rem; cursor: pointer; transition: var(--transition);
+        }
+        .ex-card:hover { border-color: var(--emerald); background: var(--emerald-light); }
+        .ex-card .ex-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+        .ex-card .ex-num { background: var(--emerald); color: white; width: 36px; height: 36px; min-width: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; }
+        .ex-card .ex-title { font-weight: 700; color: var(--dark); font-size: 0.95rem; }
+        .ex-card .ex-answer { display: none; margin-top: 0.8rem; }
+        .ex-card .ex-answer.show { display: block; }
+        .ex-card .ex-answer .answer-label { font-weight: 700; color: #047857; font-size: 0.8rem; margin-bottom: 0.4rem; }
+        .ex-card .ex-answer .answer-code {
+            background: #1e1e1e; color: #d4d4d4; padding: 0.6rem 0.9rem; border-radius: 0.5rem;
+            font-family: 'Consolas', 'Courier New', monospace; direction: ltr; font-size: 0.8rem;
+            max-width: 100%; overflow-x: auto; white-space: pre-wrap; text-align: right;
+        }
+        .ex-card .ex-answer .answer-code .kw { color: #569cd6; } .ex-card .ex-answer .answer-code .str { color: #ce9178; } .ex-card .ex-answer .answer-code .num { color: #b5cea8; } .ex-card .ex-answer .answer-code .fn { color: #dcdcaa; } .ex-card .ex-answer .answer-code .cm { color: #6a9955; }
+        .quiz-section { background: white; border-radius: var(--radius-sm); padding: 1.5rem; margin-top: 1.5rem; border: 2px solid #e0e7ef; }
+        .quiz-section h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 1rem; font-weight: 800; text-align: center; }
+        .quiz-item { background: #f9fbfe; border: 1px solid #eef2f8; border-radius: var(--radius-xs); padding: 1.2rem; margin-bottom: 1rem; }
+        .quiz-question { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .quiz-option { display: flex; align-items: center; gap: 10px; cursor: pointer; background: white; padding: 0.6rem 1rem; border-radius: 1rem; transition: var(--transition); border: 1px solid #eef2f8; }
+        .quiz-option:hover { background: #f0f6fa; border-color: #cddfe7; }
+        .quiz-option input[type="radio"] { width: 18px; height: 18px; accent-color: var(--emerald); cursor: pointer; }
+        .quiz-option.correct-answer { background: #d4edda; border-color: #2b9348; }
+        .quiz-option.wrong-answer { background: #fce4e4; border-color: #d94535; }
+        .quiz-feedback { margin-top: 0.5rem; font-weight: 600; font-size: 0.85rem; min-height: 1.5rem; }
+        .feedback-correct { color: #1f6e34; } .feedback-wrong { color: #c0392b; }
+        .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
+        .btn { padding: 0.8rem 2rem; font-family: 'Vazirmatn', sans-serif; font-size: 0.95rem; font-weight: 700; border-radius: 3rem; cursor: pointer; transition: var(--transition); border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .btn-primary { background: linear-gradient(95deg, #2b9348, #238b3f); color: white; box-shadow: 0 6px 16px rgba(35, 139, 63, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(35, 139, 63, 0.4); }
+        .btn-outline { background: white; color: var(--green-dark); border: 2px solid var(--green); }
+        .btn-outline:hover { background: var(--green-light); }
+        .toast-notify { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) scale(0.9); background: linear-gradient(115deg, #1f3b2c, #113a25); color: #f3fff9; padding: 0.9rem 2rem; border-radius: 60px; font-weight: 600; font-size: 1rem; box-shadow: 0 20px 30px -12px black; z-index: 1000; opacity: 0; transition: 0.25s; pointer-events: none; white-space: nowrap; }
+        .toast-notify.show { opacity: 1; transform: translateX(-50%) scale(1); }
+        .footer-box { margin-top: 1.5rem; text-align: center; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(6px); border-radius: 2rem; padding: 0.9rem 1.2rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); border: 1px solid rgba(255, 255, 255, 0.8); }
+        .footer-text { font-size: 0.9rem; color: #2c3e50; font-weight: 500; }
+        .footer-text span { color: #1f6e3f; font-weight: 800; background: #eafaf1; padding: 0.2rem 0.8rem; border-radius: 30px; display: inline-block; }
+        .support-link { color: #2b9348; font-weight: 600; text-decoration: none; direction: ltr; display: inline-block; margin-top: 0.3rem; font-size: 0.85rem; }
+        @media (max-width: 600px) {
+            .stage-card { padding: 1.5rem 1rem; } .stage-header h1 { font-size: 1.4rem; }
+            .lesson-section { padding: 1rem; font-size: 0.9rem; } .btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
+            .exercise-grid { grid-template-columns: 1fr; } .type-grid { grid-template-columns: 1fr; } .code-box { font-size: 0.75rem; padding: 0.8rem; } .output-box { font-size: 0.75rem; padding: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="stage-card">
+            <div class="stage-header">
+                <span class="stage-badge-top">📚 مرحله ۱۹ از ۳۱</span>
+                <h1>🗂️ مجموعه، دیکشنری و تاپل</h1>
+                <p class="subtitle">سه ساختار داده مهم دیگر در پایتون</p>
+            </div>
+
+            <div style="text-align:center;">
+                <div class="user-greeting" id="userGreeting">
+                    👋 سلام، <strong id="userNameDisplay">دانشجو</strong> جان! امروز سه ساختار جدید یاد می‌گیریم 🗂️
+                </div>
+            </div>
+
+            <div class="lesson-section">
+                <h2>📦 معرفی سه ساختار داده</h2>
+                <p>تا حالا با <strong>لیست</strong> آشنا شدی. پایتون سه ساختار داده مهم دیگر هم دارد:</p>
+
+                <div class="type-grid">
+                    <div class="type-card">
+                        <h4>📦 تاپل (Tuple)</h4>
+                        <div class="type-symbol">()</div>
+                        <p><strong>غیرقابل تغییر</strong> - مثل لیست اما نمی‌توانی آیتم‌هایش را تغییر دهی. با پرانتز ساخته می‌شود.</p>
+                    </div>
+                    <div class="type-card">
+                        <h4>🔑 دیکشنری (Dict)</h4>
+                        <div class="type-symbol">{}</div>
+                        <p><strong>کلید-مقدار</strong> - مثل دفترچه تلفن! هر مقدار با یک کلید مشخص می‌شود. با آکولاد ساخته می‌شود.</p>
+                    </div>
+                    <div class="type-card">
+                        <h4>🎯 مجموعه (Set)</h4>
+                        <div class="type-symbol">set()</div>
+                        <p><strong>بدون تکرار</strong> - مثل لیست اما آیتم‌های تکراری را حذف می‌کند. ترتیب ندارد.</p>
+                    </div>
+                </div>
+
+                <h2>📦 تاپل (Tuple) - لیست غیرقابل تغییر</h2>
+                <p>
+                    تاپل دقیقاً شبیه لیست است، با یک تفاوت بزرگ: <strong>نمی‌توانی آیتم‌هایش را تغییر دهی، اضافه کنی یا حذف کنی!</strong>
+                    از تاپل برای داده‌هایی استفاده می‌کنی که نباید تغییر کنند (مثل روزهای هفته، مختصات جغرافیایی).
+                </p>
+                <div class="code-box">
+<span class="cm"># ساخت تاپل با پرانتز</span>
+<span class="var">days</span> = (<span class="str">"شنبه"</span>, <span class="str">"یکشنبه"</span>, <span class="str">"دوشنبه"</span>)
+<span class="kw">print</span>(days[<span class="num">0</span>])
+
+<span class="cm"># این خطا می‌دهد!</span>
+<span class="cm"># days[0] = "جمعه"  # TypeError!</span>
+                </div>
+                <div class="output-box">شنبه</div>
+
+                <h2>🔑 دیکشنری (Dictionary) - دفترچه تلفن پایتون</h2>
+                <p>
+                    دیکشنری مثل یک <strong>دفترچه تلفن</strong> است! هر <strong>کلید (Key)</strong>
+                    به یک <strong>مقدار (Value)</strong> اشاره می‌کند. به جای ایندکس عددی،
+                    از کلیدهای معنادار استفاده می‌کنی.
+                </p>
+                <div class="code-box">
+<span class="cm"># ساخت دیکشنری با آکولاد</span>
+<span class="var">student</span> = {
+    <span class="str">"name"</span>: <span class="str">"Ali"</span>,
+    <span class="str">"age"</span>: <span class="num">20</span>,
+    <span class="str">"grade"</span>: <span class="str">"A"</span>
+}
+<span class="kw">print</span>(student[<span class="str">"name"</span>])
+<span class="kw">print</span>(student[<span class="str">"age"</span>])
+
+<span class="cm"># اضافه کردن کلید جدید</span>
+student[<span class="str">"city"</span>] = <span class="str">"Tehran"</span>
+                </div>
+                <div class="output-box">Ali
+20</div>
+
+                <h2>🎯 مجموعه (Set) - بدون عضو تکراری</h2>
+                <p>
+                    مجموعه مثل لیست است اما <strong>عضو تکراری</strong> نمی‌پذیرد و <strong>ترتیب</strong> خاصی ندارد.
+                    برای حذف موارد تکراری از یک لیست عالی است!
+                </p>
+                <div class="code-box">
+<span class="cm"># ساخت مجموعه</span>
+<span class="var">nums</span> = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">3</span>, <span class="num">3</span>}
+<span class="kw">print</span>(nums)
+
+<span class="cm"># حذف تکرار از لیست</span>
+<span class="var">lst</span> = [<span class="num">1</span>,<span class="num">2</span>,<span class="num">2</span>,<span class="num">3</span>]
+<span class="var">unique</span> = <span class="fn">set</span>(lst)
+<span class="kw">print</span>(unique)
+                </div>
+                <div class="output-box">{1, 2, 3}
+{1, 2, 3}</div>
+
+                <h2>🧪 تمرین‌های عملی</h2>
+                <p>روی هر کارت کلیک کن تا پاسخ را ببینی! <strong>اول خودت حل کن!</strong></p>
+                <div class="exercise-grid" id="exerciseGrid"></div>
+            </div>
+
+            <div class="quiz-section" id="quizSection">
+                <h3>📝 آزمون مرحله ۱۹</h3>
+                <p style="text-align:center;color:var(--text-light);margin-bottom:1rem;font-size:0.85rem;">ببینیم چقدر یاد گرفتی؟ (اختیاری)</p>
+                <div class="quiz-item" data-question="1" data-correct="2">
+                    <div class="quiz-question">۱. کدام ساختار داده <strong>غیرقابل تغییر</strong> است؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q1" value="1"> لیست</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="2"> تاپل</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="3"> دیکشنری</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="4"> مجموعه</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+                <div class="quiz-item" data-question="2" data-correct="3">
+                    <div class="quiz-question">۲. دیکشنری از چه ساختاری استفاده می‌کند؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q2" value="1"> ایندکس عددی</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="2"> فقط مقادیر</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="3"> کلید-مقدار</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="4"> ترتیب الفبایی</label>
+                    </div>
+                                        <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+                <div class="quiz-item" data-question="3" data-correct="4">
+                    <div class="quiz-question">۳. خروجی <span class="code-inline">set([1,1,2,2,3])</span> چیست؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q3" value="1"> [1,1,2,2,3]</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="2"> [1,2,3]</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="3"> {1,1,2,2,3}</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="4"> {1,2,3}</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+                <div class="quiz-item" data-question="4" data-correct="1">
+                    <div class="quiz-question">۴. تاپل با چه علامتی ساخته می‌شود؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q4" value="1"> پرانتز ()</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="2"> براکت []</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="3"> آکولاد {}</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="4"> کوتیشن ""</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback4"></div>
+                </div>
+                <div class="quiz-item" data-question="5" data-correct="2">
+                    <div class="quiz-question">۵. کدام ویژگی <strong>مخصوص مجموعه (Set)</strong> است؟</div>
+                    <div class="quiz-options">
+                        <label class="quiz-option"><input type="radio" name="q5" value="1"> قابل تغییر بودن</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="2"> نداشتن عضو تکراری</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="3"> ایندکس عددی</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="4"> کلید-مقدار</label>
+                    </div>
+                    <div class="quiz-feedback" id="feedback5"></div>
+                </div>
+                <div style="text-align:center;margin-top:1.5rem;">
+                    <button class="btn btn-primary" id="checkQuizBtn">✅ بررسی پاسخ‌ها</button>
+                </div>
+                <div id="quizResultMsg" style="text-align:center;margin-top:0.8rem;font-weight:700;min-height:1.5rem;"></div>
+            </div>
+
+            <div class="btn-row">
+                <a href="../dashboard.html" class="btn btn-outline">🏠 بازگشت به داشبورد</a>
+                <a href="stage-18.html" class="btn btn-outline">⬅️ مرحله قبلی</a>
+                <a href="stage-20.html" class="btn btn-primary">🚀 مرحله بعد: خطاها</a>
+            </div>
+        </div>
+
+        <div class="footer-box">
+            <div class="footer-text">✨ طراح: <span>بردیا فاتحی</span> ✨</div>
+            <div>📩 پشتیبانی: <a class="support-link" href="https://t.me/Fatehi_Academy_Support" target="_blank">@Fatehi_Academy_Support</a></div>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-notify"></div>
+
+    <script>
+        (function() {
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const checkQuizBtn = document.getElementById('checkQuizBtn');
+            const quizResultMsg = document.getElementById('quizResultMsg');
+            const toastMsg = document.getElementById('toastMsg');
+            const particlesContainer = document.getElementById('particles');
+
+            function createParticles() { const c=['#059669','#f0a500','#4a90d9','#2b9348','#e07b5a']; for(let i=0;i<18;i++){const p=document.createElement('div');p.classList.add('particle');const s=Math.random()*14+5;p.style.width=s+'px';p.style.height=s+'px';p.style.left=Math.random()*100+'%';p.style.bottom='-20px';p.style.animationDelay=Math.random()*8+'s';p.style.animationDuration=(Math.random()*7+5)+'s';p.style.background=c[Math.floor(Math.random()*c.length)];particlesContainer.appendChild(p);} }
+            createParticles();
+            function showToast(m,s=true){toastMsg.textContent=m;toastMsg.style.background=s?'linear-gradient(115deg,#1f3b2c,#113a25)':'linear-gradient(115deg,#5c1a1a,#8b2020)';toastMsg.classList.remove('show');void toastMsg.offsetWidth;toastMsg.classList.add('show');setTimeout(()=>{toastMsg.classList.remove('show');},3000);}
+            const userData=JSON.parse(localStorage.getItem('python_academy_user')||'null');
+            if(userData&&userData.fullName){userNameDisplay.textContent=userData.fullName;}
+
+            const exercises = [
+                {num:1, title:'ساخت تاپل ۳ رنگ', code:'colors = (<span class="str">"قرمز"</span>,<span class="str">"سبز"</span>,<span class="str">"آبی"</span>)\n<span class="kw">print</span>(colors[<span class="num">1</span>])'},
+                {num:2, title:'ساخت دیکشنری اطلاعات یک کتاب', code:'book = {<span class="str">"title"</span>:<span class="str">"Python"</span>,<span class="str">"pages"</span>:<span class="num">300</span>}\n<span class="kw">print</span>(book[<span class="str">"title"</span>])'},
+                {num:3, title:'حذف تکرار از لیست با set', code:'lst = [<span class="num">5</span>,<span class="num">5</span>,<span class="num">10</span>,<span class="num">10</span>]\n<span class="kw">print</span>(<span class="fn">set</span>(lst))'},
+                {num:4, title:'اضافه کردن کلید جدید به دیکشنری', code:'d = {<span class="str">"a"</span>:<span class="num">1</span>}\nd[<span class="str">"b"</span>] = <span class="num">2</span>\n<span class="kw">print</span>(d)'},
+                {num:5, title:'حلقه for روی دیکشنری', code:'d = {<span class="str">"x"</span>:<span class="num">10</span>,<span class="str">"y"</span>:<span class="num">20</span>}\n<span class="kw">for</span> k <span class="kw">in</span> d:\n    <span class="kw">print</span>(k,d[k])'},
+                {num:6, title:'عملیات اشتراک دو مجموعه', code:'a = {<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>}\nb = {<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>}\n<span class="kw">print</span>(a & b)'}
+            ];
+
+            function buildCards(id, data) {
+                const container = document.getElementById(id);
+                data.forEach(ex => {
+                    const card = document.createElement('div');
+                    card.className = 'ex-card';
+                    card.innerHTML = `<div class="ex-header"><div class="ex-num">${ex.num}</div><div class="ex-title">${ex.title}</div></div><div class="ex-answer"><div class="answer-label">✅ پاسخ:</div><div class="answer-code">${ex.code}</div></div>`;
+                    card.addEventListener('click', function(e){ e.stopPropagation(); this.querySelector('.ex-answer').classList.toggle('show'); });
+                    container.appendChild(card);
+                });
+            }
+            buildCards('exerciseGrid', exercises);
+
+            checkQuizBtn.addEventListener('click',()=>{
+                const items=document.querySelectorAll('.quiz-item');let ac=true,aa=true,cc=0;const t=items.length;
+                document.querySelectorAll('.quiz-feedback').forEach(f=>{f.textContent='';f.className='quiz-feedback';});
+                document.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('correct-answer','wrong-answer'));
+                items.forEach(item=>{const q=item.getAttribute('data-question');const ca=item.getAttribute('data-correct');const sr=item.querySelector(`input[name="q${q}"]:checked`);const fe=document.getElementById('feedback'+q);if(!sr){aa=false;ac=false;fe.textContent='⚠️ یک گزینه انتخاب کن!';fe.className='quiz-feedback feedback-wrong';return;}const sv=sr.value;const so=sr.closest('.quiz-option');if(sv===ca){cc++;so.classList.add('correct-answer');fe.textContent='✅ صحیح!';fe.className='quiz-feedback feedback-correct';}else{ac=false;so.classList.add('wrong-answer');const co=item.querySelector(`input[value="${ca}"]`).closest('.quiz-option');co.classList.add('correct-answer');fe.textContent='❌ نادرست!';fe.className='quiz-feedback feedback-wrong';}});
+                if(!aa){quizResultMsg.innerHTML='<span style="color:#d94535;">⚠️ به همه سوالات پاسخ بده!</span>';return;}
+                if(ac){quizResultMsg.innerHTML='<span style="color:#1f6e34;">🎉 تبریک! ساختارهای داده را یاد گرفتی!</span>';showToast('🎉 عالی!',true);}
+                else{const wc=t-cc;quizResultMsg.innerHTML=`<span style="color:#d94535;">😔 ${wc} سوال اشتباه بود.</span>`;}
+            });
+            document.querySelectorAll('.quiz-option').forEach(o=>{o.addEventListener('click',function(){const r=this.querySelector('input[type="radio"]');if(r)r.checked=true;});});
+            console.log('🐍 مرحله ۱۹: مجموعه، دیکشنری و تاپل | آکادمی بردیا فاتحی');
+        })();
+    </script>
+</body>
+      </html>
